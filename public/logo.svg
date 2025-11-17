@@ -1,0 +1,7 @@
+<svg viewBox="0 0 400 500" xmlns="http://www.w3.org/2000/svg">
+  <!-- Upside-down triangle -->
+  <path d="M 200 100 L 280 260 L 120 260 Z" fill="#ffffff"/>
+  
+  <!-- Black circle at bottom corner -->
+  <circle cx="200" cy="260" r="8" fill="#000000"/>
+</svg>
