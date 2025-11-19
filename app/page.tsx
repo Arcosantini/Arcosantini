@@ -230,9 +230,11 @@ export default function Home() {
               and support that professional organizers trust
             </p>
             <div className="flex flex-wrap gap-4 justify-center">
-              <Button size="lg" variant="secondary" className="font-light tracking-wide">
-                Schedule Consultation
-                <ArrowRight className="ml-2 h-4 w-4" />
+              <Button asChild size="lg" variant="secondary" className="font-light tracking-wide">
+                <Link href="/book">
+                  Schedule Consultation
+                  <ArrowRight className="ml-2 h-4 w-4" />
+                </Link>
               </Button>
               <Button size="lg" variant="outline" className="bg-transparent border-primary-foreground/20 text-primary-foreground hover:bg-primary-foreground/10 font-light tracking-wide">
                 View Pricing
