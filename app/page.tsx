@@ -35,6 +35,9 @@ export default function Home() {
               <Link href="#ventures" className="text-sm font-light tracking-wide text-foreground hover:text-muted-foreground transition-colors">
                 Ventures
               </Link>
+              <Link href="/about" className="text-sm font-light tracking-wide text-foreground hover:text-muted-foreground transition-colors">
+                About
+              </Link>
               <Link href="#contact" className="text-sm font-light tracking-wide text-foreground hover:text-muted-foreground transition-colors">
                 Contact
               </Link>
@@ -275,7 +278,7 @@ export default function Home() {
               <h4 className="text-sm font-normal tracking-wide mb-4">Company</h4>
               <ul className="space-y-3">
                 <li>
-                  <Link href="#" className="text-sm font-light text-muted-foreground hover:text-foreground transition-colors">
+                  <Link href="/about" className="text-sm font-light text-muted-foreground hover:text-foreground transition-colors">
                     About
                   </Link>
                 </li>
