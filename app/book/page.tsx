@@ -9,9 +9,12 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { ArrowLeft, Calendar, Clock, CheckCircle2 } from 'lucide-react'
 import { useState } from 'react'
+import { createClient } from '@/lib/supabase/client'
 
 export default function BookingPage() {
   const [submitted, setSubmitted] = useState(false)
+  const [isLoading, setIsLoading] = useState(false)
+  const [error, setError] = useState<string | null>(null)
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -22,11 +25,38 @@ export default function BookingPage() {
     message: ''
   })
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    // In a real app, this would send data to a server
-    console.log('[v0] Booking submitted:', formData)
-    setSubmitted(true)
+    setIsLoading(true)
+    setError(null)
+
+    try {
+      const supabase = createClient()
+      
+      // Insert the booking data into Supabase
+      const { error: insertError } = await supabase
+        .from('consultations')
+        .insert({
+          name: formData.name,
+          email: formData.email,
+          phone: formData.phone || null,
+          service: formData.service,
+          preferred_date: formData.date,
+          preferred_time: formData.time,
+          message: formData.message || null,
+        })
+
+      if (insertError) {
+        throw insertError
+      }
+
+      setSubmitted(true)
+    } catch (err) {
+      console.error('[v0] Error submitting booking:', err)
+      setError(err instanceof Error ? err.message : 'Failed to submit booking. Please try again.')
+    } finally {
+      setIsLoading(false)
+    }
   }
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
@@ -283,8 +313,18 @@ export default function BookingPage() {
                 />
               </div>
 
-              <Button type="submit" className="w-full bg-primary text-primary-foreground hover:bg-primary/90 font-light tracking-wide">
-                Schedule Consultation
+              {error && (
+                <div className="rounded-md bg-destructive/10 p-3 text-sm text-destructive">
+                  {error}
+                </div>
+              )}
+
+              <Button 
+                type="submit" 
+                className="w-full bg-primary text-primary-foreground hover:bg-primary/90 font-light tracking-wide"
+                disabled={isLoading}
+              >
+                {isLoading ? 'Submitting...' : 'Schedule Consultation'}
               </Button>
 
               <p className="text-xs font-light text-muted-foreground text-center">
