@@ -1,28 +1,30 @@
-'use client'
+"use client"
 
-import { Button } from '@/components/ui/button'
-import { Card } from '@/components/ui/card'
-import { Input } from '@/components/ui/input'
-import { Label } from '@/components/ui/label'
-import { Textarea } from '@/components/ui/textarea'
-import Image from 'next/image'
-import Link from 'next/link'
-import { ArrowLeft, Calendar, Clock, CheckCircle2 } from 'lucide-react'
-import { useState } from 'react'
-import { createClient } from '@/lib/supabase/client'
+import type React from "react"
+
+import { Button } from "@/components/ui/button"
+import { Card } from "@/components/ui/card"
+import { Input } from "@/components/ui/input"
+import { Label } from "@/components/ui/label"
+import { Textarea } from "@/components/ui/textarea"
+import Image from "next/image"
+import Link from "next/link"
+import { ArrowLeft, Calendar, Clock, CheckCircle2 } from "lucide-react"
+import { useState } from "react"
+import { createClient } from "@/lib/supabase/client"
 
 export default function BookingPage() {
   const [submitted, setSubmitted] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    phone: '',
-    service: '',
-    date: '',
-    time: '',
-    message: ''
+    name: "",
+    email: "",
+    phone: "",
+    service: "",
+    date: "",
+    time: "",
+    message: "",
   })
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -32,37 +34,50 @@ export default function BookingPage() {
 
     try {
       const supabase = createClient()
-      
-      // Insert the booking data into Supabase
-      const { error: insertError } = await supabase
-        .from('consultations')
-        .insert({
-          name: formData.name,
-          email: formData.email,
-          phone: formData.phone || null,
-          service: formData.service,
-          preferred_date: formData.date,
-          preferred_time: formData.time,
-          message: formData.message || null,
-        })
+
+      const { error: insertError } = await supabase.from("consultations").insert({
+        name: formData.name,
+        email: formData.email,
+        phone: formData.phone || null,
+        service: formData.service,
+        preferred_date: formData.date,
+        preferred_time: formData.time,
+        message: formData.message || null,
+      })
 
       if (insertError) {
         throw insertError
       }
 
+      await fetch("/api/send-consultation-email", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          name: formData.name,
+          email: formData.email,
+          phone: formData.phone,
+          service: formData.service,
+          preferred_date: formData.date,
+          preferred_time: formData.time,
+          message: formData.message,
+        }),
+      })
+
       setSubmitted(true)
     } catch (err) {
-      console.error('[v0] Error submitting booking:', err)
-      setError(err instanceof Error ? err.message : 'Failed to submit booking. Please try again.')
+      console.error("[v0] Error submitting booking:", err)
+      setError(err instanceof Error ? err.message : "Failed to submit booking. Please try again.")
     } finally {
       setIsLoading(false)
     }
   }
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
-    setFormData(prev => ({
+    setFormData((prev) => ({
       ...prev,
-      [e.target.name]: e.target.value
+      [e.target.name]: e.target.value,
     }))
   }
 
@@ -74,20 +89,10 @@ export default function BookingPage() {
           <nav className="mx-auto max-w-7xl px-6 py-6 lg:px-8">
             <div className="flex items-center justify-between">
               <Link href="/" className="flex items-center gap-3">
-                <Image
-                  src="/logo.svg"
-                  alt="The Humble Organizational"
-                  width={50}
-                  height={62}
-                  className="h-12 w-auto"
-                />
+                <Image src="/logo.svg" alt="The Humble Organizational" width={50} height={62} className="h-12 w-auto" />
                 <div className="flex flex-col">
-                  <span className="font-light text-xl tracking-[0.15em] text-foreground">
-                    HUMBLE
-                  </span>
-                  <span className="font-light text-xs tracking-[0.2em] text-muted-foreground">
-                    ORGANIZATIONAL
-                  </span>
+                  <span className="font-light text-xl tracking-[0.15em] text-foreground">HUMBLE</span>
+                  <span className="font-light text-xs tracking-[0.2em] text-muted-foreground">ORGANIZATIONAL</span>
                 </div>
               </Link>
             </div>
@@ -102,10 +107,14 @@ export default function BookingPage() {
               Consultation <span className="font-normal">Requested</span>
             </h1>
             <p className="text-lg font-light text-muted-foreground text-pretty mb-8">
-              Thank you for your interest! We&apos;ve received your consultation request and will contact you within 24 hours to confirm your appointment.
+              Thank you for your interest! We&apos;ve received your consultation request and will contact you within 24
+              hours to confirm your appointment.
             </p>
             <div className="flex gap-4 justify-center">
-              <Button asChild className="bg-primary text-primary-foreground hover:bg-primary/90 font-light tracking-wide">
+              <Button
+                asChild
+                className="bg-primary text-primary-foreground hover:bg-primary/90 font-light tracking-wide"
+              >
                 <Link href="/">
                   <ArrowLeft className="mr-2 h-4 w-4" />
                   Back to Home
@@ -125,20 +134,10 @@ export default function BookingPage() {
         <nav className="mx-auto max-w-7xl px-6 py-6 lg:px-8">
           <div className="flex items-center justify-between">
             <Link href="/" className="flex items-center gap-3">
-              <Image
-                src="/logo.svg"
-                alt="The Humble Organizational"
-                width={50}
-                height={62}
-                className="h-12 w-auto"
-              />
+              <Image src="/logo.svg" alt="The Humble Organizational" width={50} height={62} className="h-12 w-auto" />
               <div className="flex flex-col">
-                <span className="font-light text-xl tracking-[0.15em] text-foreground">
-                  HUMBLE
-                </span>
-                <span className="font-light text-xs tracking-[0.2em] text-muted-foreground">
-                  ORGANIZATIONAL
-                </span>
+                <span className="font-light text-xl tracking-[0.15em] text-foreground">HUMBLE</span>
+                <span className="font-light text-xs tracking-[0.2em] text-muted-foreground">ORGANIZATIONAL</span>
               </div>
             </Link>
             <Button asChild variant="ghost" className="font-light tracking-wide">
@@ -157,9 +156,7 @@ export default function BookingPage() {
           {/* Left Column - Info */}
           <div>
             <div className="inline-block rounded-sm border border-border px-4 py-2 mb-6">
-              <span className="text-xs font-light tracking-[0.2em] text-muted-foreground">
-                SCHEDULE CONSULTATION
-              </span>
+              <span className="text-xs font-light tracking-[0.2em] text-muted-foreground">SCHEDULE CONSULTATION</span>
             </div>
             <h1 className="text-4xl font-light tracking-tight text-balance lg:text-5xl mb-6">
               Let&apos;s discuss your
@@ -167,7 +164,8 @@ export default function BookingPage() {
               <span className="font-normal">organizing needs</span>
             </h1>
             <p className="text-lg font-light leading-relaxed text-muted-foreground text-pretty mb-8">
-              Book a complimentary consultation with our team to explore how The Humble Organizational can elevate your practice.
+              Book a complimentary consultation with our team to explore how The Humble Organizational can elevate your
+              practice.
             </p>
 
             <div className="space-y-6">
@@ -313,18 +311,14 @@ export default function BookingPage() {
                 />
               </div>
 
-              {error && (
-                <div className="rounded-md bg-destructive/10 p-3 text-sm text-destructive">
-                  {error}
-                </div>
-              )}
+              {error && <div className="rounded-md bg-destructive/10 p-3 text-sm text-destructive">{error}</div>}
 
-              <Button 
-                type="submit" 
+              <Button
+                type="submit"
                 className="w-full bg-primary text-primary-foreground hover:bg-primary/90 font-light tracking-wide"
                 disabled={isLoading}
               >
-                {isLoading ? 'Submitting...' : 'Schedule Consultation'}
+                {isLoading ? "Submitting..." : "Schedule Consultation"}
               </Button>
 
               <p className="text-xs font-light text-muted-foreground text-center">

@@ -1,8 +1,8 @@
-import { Button } from '@/components/ui/button'
-import { Card } from '@/components/ui/card'
-import Image from 'next/image'
-import Link from 'next/link'
-import { ArrowRight, Layers, Sparkles, Users, TrendingUp } from 'lucide-react'
+import { Button } from "@/components/ui/button"
+import { Card } from "@/components/ui/card"
+import Image from "next/image"
+import Link from "next/link"
+import { ArrowRight, Layers, Sparkles, Users, TrendingUp } from "lucide-react"
 
 export default function Home() {
   return (
@@ -12,33 +12,35 @@ export default function Home() {
         <nav className="mx-auto max-w-7xl px-6 py-6 lg:px-8">
           <div className="flex items-center justify-between">
             <Link href="/" className="flex items-center gap-3">
-              <Image
-                src="/logo.svg"
-                alt="The Humble Organizational"
-                width={50}
-                height={62}
-                className="h-12 w-auto"
-              />
+              <Image src="/logo.svg" alt="The Humble Organizational" width={50} height={62} className="h-12 w-auto" />
               <div className="flex flex-col">
-                <span className="font-light text-xl tracking-[0.15em] text-foreground">
-                  HUMBLE
-                </span>
-                <span className="font-light text-xs tracking-[0.2em] text-muted-foreground">
-                  ORGANIZATIONAL
-                </span>
+                <span className="font-light text-xl tracking-[0.15em] text-foreground">HUMBLE</span>
+                <span className="font-light text-xs tracking-[0.2em] text-muted-foreground">ORGANIZATIONAL</span>
               </div>
             </Link>
             <div className="hidden items-center gap-8 md:flex">
-              <Link href="#services" className="text-sm font-light tracking-wide text-foreground hover:text-muted-foreground transition-colors">
+              <Link
+                href="#services"
+                className="text-sm font-light tracking-wide text-foreground hover:text-muted-foreground transition-colors"
+              >
                 Services
               </Link>
-              <Link href="#ventures" className="text-sm font-light tracking-wide text-foreground hover:text-muted-foreground transition-colors">
+              <Link
+                href="#ventures"
+                className="text-sm font-light tracking-wide text-foreground hover:text-muted-foreground transition-colors"
+              >
                 Ventures
               </Link>
-              <Link href="/about" className="text-sm font-light tracking-wide text-foreground hover:text-muted-foreground transition-colors">
+              <Link
+                href="/about"
+                className="text-sm font-light tracking-wide text-foreground hover:text-muted-foreground transition-colors"
+              >
                 About
               </Link>
-              <Link href="#contact" className="text-sm font-light tracking-wide text-foreground hover:text-muted-foreground transition-colors">
+              <Link
+                href="#contact"
+                className="text-sm font-light tracking-wide text-foreground hover:text-muted-foreground transition-colors"
+              >
                 Contact
               </Link>
               <Button className="bg-primary text-primary-foreground hover:bg-primary/90 font-light tracking-wide">
@@ -64,15 +66,18 @@ export default function Home() {
               <span className="font-normal">excellence.</span>
             </h1>
             <p className="text-lg font-light leading-relaxed text-muted-foreground text-pretty max-w-xl">
-              The Humble Organizational empowers professional organizers with systematic frameworks, 
-              curated resources, and business solutions that transform complexity into clarity.
+              The Humble Organizational empowers professional organizers with systematic frameworks, curated resources,
+              and business solutions that transform complexity into clarity.
             </p>
             <div className="flex flex-wrap gap-4">
-              <Button size="lg" className="bg-primary text-primary-foreground hover:bg-primary/90 font-light tracking-wide">
+              <Button
+                size="lg"
+                className="bg-primary text-primary-foreground hover:bg-primary/90 font-light tracking-wide"
+              >
                 Explore THO
                 <ArrowRight className="ml-2 h-4 w-4" />
               </Button>
-              <Button size="lg" variant="outline" className="font-light tracking-wide">
+              <Button size="lg" variant="outline" className="font-light tracking-wide bg-transparent">
                 Our Philosophy
               </Button>
             </div>
@@ -139,8 +144,8 @@ export default function Home() {
             Our <span className="font-normal">Ecosystem</span>
           </h2>
           <p className="text-lg font-light text-muted-foreground text-pretty max-w-2xl">
-            From The Humble Organizational foundation, we&apos;re building complementary ventures 
-            that serve the broader organization and productivity space
+            From The Humble Organizational foundation, we&apos;re building complementary ventures that serve the broader
+            organization and productivity space
           </p>
         </div>
         <div className="grid gap-6 lg:grid-cols-2">
@@ -160,10 +165,10 @@ export default function Home() {
             <div className="p-8">
               <h3 className="text-2xl font-normal mb-3 tracking-wide">The Humble Organizational</h3>
               <p className="text-sm font-light leading-relaxed text-muted-foreground mb-6">
-                Our flagship offering: comprehensive systems, training, and resources designed 
-                specifically for professional organizers who demand excellence
+                Our flagship offering: comprehensive systems, training, and resources designed specifically for
+                professional organizers who demand excellence
               </p>
-              <Button variant="outline" className="font-light tracking-wide group">
+              <Button variant="outline" className="font-light tracking-wide group bg-transparent">
                 Learn More
                 <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
               </Button>
@@ -229,8 +234,8 @@ export default function Home() {
               <span className="font-normal">organizing practice?</span>
             </h2>
             <p className="text-lg font-light leading-relaxed mb-8 opacity-90 text-pretty">
-              Join The Humble Organizational community and access the frameworks, resources, 
-              and support that professional organizers trust
+              Join The Humble Organizational community and access the frameworks, resources, and support that
+              professional organizers trust
             </p>
             <div className="flex flex-wrap gap-4 justify-center">
               <Button asChild size="lg" variant="secondary" className="font-light tracking-wide">
@@ -239,7 +244,11 @@ export default function Home() {
                   <ArrowRight className="ml-2 h-4 w-4" />
                 </Link>
               </Button>
-              <Button size="lg" variant="outline" className="bg-transparent border-primary-foreground/20 text-primary-foreground hover:bg-primary-foreground/10 font-light tracking-wide">
+              <Button
+                size="lg"
+                variant="outline"
+                className="bg-transparent border-primary-foreground/20 text-primary-foreground hover:bg-primary-foreground/10 font-light tracking-wide"
+              >
                 View Pricing
               </Button>
             </div>
@@ -253,42 +262,41 @@ export default function Home() {
           <div className="grid gap-8 md:grid-cols-4">
             <div className="md:col-span-2">
               <Link href="/" className="flex items-center gap-3 mb-4">
-                <Image
-                  src="/logo.svg"
-                  alt="THO"
-                  width={40}
-                  height={50}
-                  className="h-10 w-auto"
-                />
+                <Image src="/logo.svg" alt="THO" width={40} height={50} className="h-10 w-auto" />
                 <div className="flex flex-col">
-                  <span className="font-light text-lg tracking-[0.15em] text-foreground">
-                    HUMBLE
-                  </span>
-                  <span className="font-light text-[10px] tracking-[0.2em] text-muted-foreground">
-                    ORGANIZATIONAL
-                  </span>
+                  <span className="font-light text-lg tracking-[0.15em] text-foreground">HUMBLE</span>
+                  <span className="font-light text-[10px] tracking-[0.2em] text-muted-foreground">ORGANIZATIONAL</span>
                 </div>
               </Link>
               <p className="text-sm font-light leading-relaxed text-muted-foreground max-w-md">
-                Organizing for Organizers. Building systematic excellence through professional 
-                frameworks and community support.
+                Organizing for Organizers. Building systematic excellence through professional frameworks and community
+                support.
               </p>
             </div>
             <div>
               <h4 className="text-sm font-normal tracking-wide mb-4">Company</h4>
               <ul className="space-y-3">
                 <li>
-                  <Link href="/about" className="text-sm font-light text-muted-foreground hover:text-foreground transition-colors">
+                  <Link
+                    href="/about"
+                    className="text-sm font-light text-muted-foreground hover:text-foreground transition-colors"
+                  >
                     About
                   </Link>
                 </li>
                 <li>
-                  <Link href="#" className="text-sm font-light text-muted-foreground hover:text-foreground transition-colors">
+                  <Link
+                    href="#"
+                    className="text-sm font-light text-muted-foreground hover:text-foreground transition-colors"
+                  >
                     Ventures
                   </Link>
                 </li>
                 <li>
-                  <Link href="#" className="text-sm font-light text-muted-foreground hover:text-foreground transition-colors">
+                  <Link
+                    href="#"
+                    className="text-sm font-light text-muted-foreground hover:text-foreground transition-colors"
+                  >
                     Blog
                   </Link>
                 </li>
@@ -298,27 +306,42 @@ export default function Home() {
               <h4 className="text-sm font-normal tracking-wide mb-4">Connect</h4>
               <ul className="space-y-3">
                 <li>
-                  <Link href="#" className="text-sm font-light text-muted-foreground hover:text-foreground transition-colors">
+                  <Link
+                    href="#"
+                    className="text-sm font-light text-muted-foreground hover:text-foreground transition-colors"
+                  >
                     Contact
                   </Link>
                 </li>
                 <li>
-                  <Link href="#" className="text-sm font-light text-muted-foreground hover:text-foreground transition-colors">
+                  <Link
+                    href="#"
+                    className="text-sm font-light text-muted-foreground hover:text-foreground transition-colors"
+                  >
                     Community
                   </Link>
                 </li>
                 <li>
-                  <Link href="#" className="text-sm font-light text-muted-foreground hover:text-foreground transition-colors">
+                  <Link
+                    href="#"
+                    className="text-sm font-light text-muted-foreground hover:text-foreground transition-colors"
+                  >
                     Support
                   </Link>
                 </li>
                 <li>
-                  <Link href="/jlwpublishing" className="text-sm font-light text-muted-foreground hover:text-foreground transition-colors">
+                  <Link
+                    href="/jlwpublishing"
+                    className="text-sm font-light text-muted-foreground hover:text-foreground transition-colors"
+                  >
                     JLWPublishing
                   </Link>
                 </li>
                 <li>
-                  <Link href="https://v0-encrypted-chat-room-nu.vercel.app/" target="_blank" rel="noopener noreferrer" className="text-sm font-light text-muted-foreground hover:text-foreground transition-colors">
+                  <Link
+                    href="/castle-project"
+                    className="text-sm font-light text-muted-foreground hover:text-foreground transition-colors"
+                  >
                     The Castle Project
                   </Link>
                 </li>
