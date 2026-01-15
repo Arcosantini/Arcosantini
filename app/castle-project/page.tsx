@@ -2,7 +2,7 @@ import { Button } from "@/components/ui/button"
 import { Card } from "@/components/ui/card"
 import Image from "next/image"
 import Link from "next/link"
-import { ArrowRight, Lock, Users } from "lucide-react"
+import { ArrowRight, Lock, Users, Briefcase } from "lucide-react"
 
 export default function CastleProjectPage() {
   return (
@@ -45,8 +45,7 @@ export default function CastleProjectPage() {
           </p>
         </div>
 
-        {/* Project Cards */}
-        <div className="grid gap-8 md:grid-cols-2 max-w-5xl mx-auto">
+        <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3 max-w-6xl mx-auto">
           {/* Encrypted Chat Room */}
           <Card className="p-0 overflow-hidden border-border group hover:border-foreground/20 transition-colors">
             <div className="aspect-video bg-gradient-to-br from-card to-muted flex items-center justify-center">
@@ -91,6 +90,28 @@ export default function CastleProjectPage() {
                   rel="noopener noreferrer"
                 >
                   Visit MSS Network
+                  <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
+                </Link>
+              </Button>
+            </div>
+          </Card>
+
+          <Card className="p-0 overflow-hidden border-border group hover:border-foreground/20 transition-colors">
+            <div className="aspect-video bg-gradient-to-br from-card to-muted flex items-center justify-center">
+              <Briefcase className="h-20 w-20 text-muted-foreground group-hover:text-foreground transition-colors" />
+            </div>
+            <div className="p-8">
+              <div className="inline-block rounded-sm bg-primary/10 border border-primary/20 px-3 py-1 text-xs font-light tracking-[0.15em] text-primary mb-4">
+                COLLABORATIVE SPACE
+              </div>
+              <h3 className="text-2xl font-normal mb-3 tracking-wide">Community Projects</h3>
+              <p className="text-sm font-light leading-relaxed text-muted-foreground mb-6">
+                Discover and contribute to community-driven initiatives. A space for collaboration, innovation, and
+                collective growth
+              </p>
+              <Button asChild variant="outline" className="font-light tracking-wide group w-full bg-transparent">
+                <Link href="/castle-project/community">
+                  Explore Projects
                   <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
                 </Link>
               </Button>
