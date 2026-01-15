@@ -38,7 +38,7 @@ export default function VibeCodingPage() {
 
       {/* Main Content */}
       <main className="flex-1 bg-white">
-        <div className="mx-auto max-w-5xl px-6 py-12 lg:px-8">
+        <div className="mx-auto max-w-5xl px-6 py-12 lg:px-8 text-gray-900">
           <Link
             href="/castle-project/community"
             className="inline-flex items-center gap-2 text-sm text-[#667eea] hover:text-[#764ba2] transition-colors mb-8"
@@ -50,11 +50,11 @@ export default function VibeCodingPage() {
           {/* Overview */}
           <div className="bg-blue-50 p-8 rounded-lg border-l-4 border-[#667eea] mb-12">
             <h2 className="text-2xl font-bold text-[#667eea] mb-4">Course Overview</h2>
-            <p className="mb-4 leading-relaxed">
+            <p className="mb-4 leading-relaxed text-gray-900">
               Learn to build beautiful, functional websites using AI-powered design tools and modern deployment
               platforms. No prior coding experience required—just bring your creativity and ideas!
             </p>
-            <p className="leading-relaxed">
+            <p className="leading-relaxed text-gray-900">
               <strong>Target Audience:</strong> Teens and adults, beginners to intermediate
               <br />
               <strong>Tools Required:</strong> Computer with internet access, email address (for accounts)
@@ -68,14 +68,14 @@ export default function VibeCodingPage() {
                 1
               </div>
               <div>
-                <h3 className="text-2xl font-bold mb-1">Welcome to Vibe Coding</h3>
+                <h3 className="text-2xl font-bold mb-1 text-gray-900">Welcome to Vibe Coding</h3>
                 <p className="text-[#667eea] italic">What is vibe coding and setting up your creative workspace</p>
               </div>
             </div>
             <div className="space-y-6">
               <div>
                 <h4 className="text-lg font-semibold text-[#667eea] mb-3">Learning Objectives</h4>
-                <ul className="space-y-2">
+                <ul className="space-y-2 text-gray-900">
                   <li className="pl-8 relative before:content-['✓'] before:absolute before:left-0 before:text-[#667eea] before:font-bold">
                     Understand what "vibe coding" means (AI-assisted, intuitive web development)
                   </li>
@@ -89,7 +89,7 @@ export default function VibeCodingPage() {
               </div>
               <div>
                 <h4 className="text-lg font-semibold text-[#667eea] mb-3">Session Outline</h4>
-                <div className="space-y-3">
+                <div className="space-y-3 text-gray-900">
                   <div className="bg-gray-50 p-4 rounded border-l-3 border-[#667eea]">
                     <strong className="text-[#667eea]">Introduction (20 min)</strong>
                     <br />
@@ -125,14 +125,14 @@ export default function VibeCodingPage() {
                 2
               </div>
               <div>
-                <h3 className="text-2xl font-bold mb-1">Mastering the Art of Prompting</h3>
+                <h3 className="text-2xl font-bold mb-1 text-gray-900">Mastering the Art of Prompting</h3>
                 <p className="text-[#667eea] italic">How to communicate your vision to AI</p>
               </div>
             </div>
             <div className="space-y-6">
               <div>
                 <h4 className="text-lg font-semibold text-[#667eea] mb-3">Learning Objectives</h4>
-                <ul className="space-y-2">
+                <ul className="space-y-2 text-gray-900">
                   <li className="pl-8 relative before:content-['✓'] before:absolute before:left-0 before:text-[#667eea] before:font-bold">
                     Write effective prompts for desired outcomes
                   </li>
@@ -154,7 +154,7 @@ export default function VibeCodingPage() {
                 <div className="w-12 h-12 rounded-full bg-gradient-to-br from-[#667eea] to-[#764ba2] text-white flex items-center justify-center text-xl font-bold">
                   3
                 </div>
-                <h3 className="text-xl font-bold">Building Interactive Components</h3>
+                <h3 className="text-xl font-bold text-gray-900">Building Interactive Components</h3>
               </div>
               <p className="text-gray-600 ml-16">Adding functionality and user interaction</p>
             </div>
@@ -164,7 +164,7 @@ export default function VibeCodingPage() {
                 <div className="w-12 h-12 rounded-full bg-gradient-to-br from-[#667eea] to-[#764ba2] text-white flex items-center justify-center text-xl font-bold">
                   4
                 </div>
-                <h3 className="text-xl font-bold">Deploying Your First Site</h3>
+                <h3 className="text-xl font-bold text-gray-900">Deploying Your First Site</h3>
               </div>
               <p className="text-gray-600 ml-16">Taking your creation live on the internet</p>
             </div>
@@ -174,7 +174,7 @@ export default function VibeCodingPage() {
                 <div className="w-12 h-12 rounded-full bg-gradient-to-br from-[#667eea] to-[#764ba2] text-white flex items-center justify-center text-xl font-bold">
                   5
                 </div>
-                <h3 className="text-xl font-bold">Advanced Vibes & Integrations</h3>
+                <h3 className="text-xl font-bold text-gray-900">Advanced Vibes & Integrations</h3>
               </div>
               <p className="text-gray-600 ml-16">Taking it to the next level</p>
             </div>
@@ -184,7 +184,7 @@ export default function VibeCodingPage() {
                 <div className="w-12 h-12 rounded-full bg-gradient-to-br from-[#667eea] to-[#764ba2] text-white flex items-center justify-center text-xl font-bold">
                   6
                 </div>
-                <h3 className="text-xl font-bold">Community Showcase & Next Steps</h3>
+                <h3 className="text-xl font-bold text-gray-900">Community Showcase & Next Steps</h3>
               </div>
               <p className="text-gray-600 ml-16">Celebration and continuing your journey</p>
             </div>
@@ -193,7 +193,7 @@ export default function VibeCodingPage() {
           {/* Tips Section */}
           <div className="mt-12 bg-orange-50 p-8 rounded-lg border-l-4 border-orange-400">
             <h2 className="text-2xl font-bold text-orange-700 mb-4">Teaching Tips</h2>
-            <ol className="space-y-3 pl-5 list-decimal">
+            <ol className="space-y-3 pl-5 list-decimal text-gray-900">
               <li>Celebrate mistakes as learning opportunities</li>
               <li>Keep the energy high—this should feel like creative play</li>
               <li>Encourage students to think big and iterate small</li>
