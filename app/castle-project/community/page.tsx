@@ -1,7 +1,6 @@
-import { Button } from "@/components/ui/button"
 import Image from "next/image"
 import Link from "next/link"
-import { ArrowLeft, Briefcase } from "lucide-react"
+import { ArrowLeft, BookOpen } from "lucide-react"
 
 export default function CommunityProjectsPage() {
   return (
@@ -28,30 +27,57 @@ export default function CommunityProjectsPage() {
         </nav>
       </header>
 
-      {/* Main Content */}
-      <main className="flex-1 flex items-center justify-center px-6 py-24">
-        <div className="text-center max-w-2xl mx-auto">
-          <div className="mb-8 flex justify-center">
-            <Briefcase className="h-24 w-24 text-muted-foreground" />
+      <main className="flex-1 px-6 py-24">
+        <div className="mx-auto max-w-7xl">
+          <div className="text-center mb-16">
+            <div className="inline-block rounded-sm border border-border px-4 py-2 mb-6">
+              <span className="text-xs font-light tracking-[0.2em] text-muted-foreground">COMMUNITY INITIATIVES</span>
+            </div>
+            <h1 className="text-5xl font-light leading-tight tracking-tight text-balance lg:text-6xl mb-6">
+              Community
+              <br />
+              <span className="font-normal">Projects</span>
+            </h1>
+            <p className="text-lg font-light leading-relaxed text-muted-foreground text-pretty max-w-2xl mx-auto">
+              Collaborative spaces and educational initiatives designed to empower and connect our community
+            </p>
           </div>
-          <div className="inline-block rounded-sm border border-border px-4 py-2 mb-6">
-            <span className="text-xs font-light tracking-[0.2em] text-muted-foreground">UNDER DEVELOPMENT</span>
-          </div>
-          <h1 className="text-6xl font-light leading-tight tracking-tight text-balance lg:text-7xl mb-6">
-            Coming
-            <br />
-            <span className="font-normal">Soon</span>
-          </h1>
-          <p className="text-lg font-light leading-relaxed text-muted-foreground text-pretty mb-12">
-            We're building something special. Community Projects will be a collaborative space for innovative
-            initiatives and collective growth.
-          </p>
-          <Button asChild variant="outline" className="font-light tracking-wide bg-transparent">
-            <Link href="/castle-project">
-              <ArrowLeft className="mr-2 h-4 w-4" />
-              Back to Castle Project
+
+          {/* Projects Grid */}
+          <div className="grid gap-8 md:grid-cols-1 max-w-3xl mx-auto">
+            {/* Vibe Coding Curriculum */}
+            <Link
+              href="/castle-project/community/vibe-coding"
+              className="group relative overflow-hidden rounded-lg border border-border bg-card p-8 hover:border-foreground transition-all duration-300"
+            >
+              <div className="flex items-start gap-6">
+                <div className="rounded-full bg-gradient-to-br from-purple-500 to-purple-700 p-4 group-hover:scale-110 transition-transform">
+                  <BookOpen className="h-8 w-8 text-white" />
+                </div>
+                <div className="flex-1">
+                  <h3 className="text-2xl font-light tracking-tight mb-3 group-hover:text-muted-foreground transition-colors">
+                    Vibe Coding Curriculum
+                  </h3>
+                  <p className="text-sm font-light leading-relaxed text-muted-foreground mb-4">
+                    A 6-week course created for the Houston Public Library teaching AI-powered web development with v0
+                    and Vercel. No coding experience required.
+                  </p>
+                  <div className="flex gap-2 flex-wrap">
+                    <span className="inline-block text-xs font-light tracking-wide px-3 py-1 rounded-full bg-purple-100 text-purple-700 dark:bg-purple-900 dark:text-purple-300">
+                      Education
+                    </span>
+                    <span className="inline-block text-xs font-light tracking-wide px-3 py-1 rounded-full bg-purple-100 text-purple-700 dark:bg-purple-900 dark:text-purple-300">
+                      Beginner-Friendly
+                    </span>
+                    <span className="inline-block text-xs font-light tracking-wide px-3 py-1 rounded-full bg-purple-100 text-purple-700 dark:bg-purple-900 dark:text-purple-300">
+                      Houston Library
+                    </span>
+                  </div>
+                </div>
+              </div>
+              <div className="absolute bottom-0 right-0 w-32 h-32 bg-gradient-to-br from-purple-500/10 to-purple-700/10 rounded-tl-full group-hover:scale-150 transition-transform duration-500" />
             </Link>
-          </Button>
+          </div>
         </div>
       </main>
 
