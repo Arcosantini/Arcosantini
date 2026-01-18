@@ -77,6 +77,40 @@ export default function CommunityProjectsPage() {
               </div>
               <div className="absolute bottom-0 right-0 w-32 h-32 bg-gradient-to-br from-purple-500/10 to-purple-700/10 rounded-tl-full group-hover:scale-150 transition-transform duration-500" />
             </Link>
+
+            {/* BandLab Music Production Curriculum */}
+            <Link
+              href="/castle-project/community/bandlab-music"
+              className="group relative overflow-hidden rounded-lg border border-border bg-card p-8 hover:border-foreground transition-all duration-300"
+            >
+              <div className="flex items-start gap-6">
+                <div className="rounded-full bg-gradient-to-br from-indigo-500 to-purple-600 p-4 group-hover:scale-110 transition-transform">
+                  <svg className="h-8 w-8 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M9 9l10.5-3m0 6.553v3.75a2.25 2.25 0 01-1.632 2.163l-1.32.377a1.803 1.803 0 11-.99-3.467l2.31-.66a2.25 2.25 0 001.632-2.163zm0 0V2.25L9 5.25v10.303m0 0v3.75a2.25 2.25 0 01-1.632 2.163l-1.32.377a1.803 1.803 0 01-.99-3.467l2.31-.66A2.25 2.25 0 009 15.553z" />
+                  </svg>
+                </div>
+                <div className="flex-1">
+                  <h3 className="text-2xl font-light tracking-tight mb-3 group-hover:text-muted-foreground transition-colors">
+                    BandLab Music Production
+                  </h3>
+                  <p className="text-sm font-light leading-relaxed text-muted-foreground mb-4">
+                    An 8-week curriculum teaching digital music production using BandLab. Perfect for beginners ages 12+, no prior music experience required.
+                  </p>
+                  <div className="flex gap-2 flex-wrap">
+                    <span className="inline-block text-xs font-light tracking-wide px-3 py-1 rounded-full bg-indigo-100 text-indigo-700 dark:bg-indigo-900 dark:text-indigo-300">
+                      Music Production
+                    </span>
+                    <span className="inline-block text-xs font-light tracking-wide px-3 py-1 rounded-full bg-indigo-100 text-indigo-700 dark:bg-indigo-900 dark:text-indigo-300">
+                      Beginner-Friendly
+                    </span>
+                    <span className="inline-block text-xs font-light tracking-wide px-3 py-1 rounded-full bg-indigo-100 text-indigo-700 dark:bg-indigo-900 dark:text-indigo-300">
+                      Houston Library
+                    </span>
+                  </div>
+                </div>
+              </div>
+              <div className="absolute bottom-0 right-0 w-32 h-32 bg-gradient-to-br from-indigo-500/10 to-purple-600/10 rounded-tl-full group-hover:scale-150 transition-transform duration-500" />
+            </Link>
           </div>
         </div>
       </main>
