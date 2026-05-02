@@ -32,9 +32,17 @@ export default function HomePage() {
 
       <main>
         {/* Hero Section */}
-        <section className="container mx-auto px-4 py-16 sm:py-20 md:py-28 text-center">
+        <section className="container mx-auto px-4 py-12 sm:py-16 md:py-20 text-center">
           <div className="max-w-4xl mx-auto">
-            <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-white mb-6 sm:mb-8 text-balance leading-tight">
+            {/* Tile Logo Banner */}
+            <div className="mb-8 sm:mb-10">
+              <img 
+                src="/images/main-street-social-logo.png" 
+                alt="Main Street Social" 
+                className="mx-auto w-full max-w-2xl h-auto drop-shadow-2xl"
+              />
+            </div>
+            <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-6 sm:mb-8 text-balance leading-tight">
               The Professional Network for Main Street
             </h1>
             <p className="text-lg sm:text-xl md:text-2xl text-slate-300 mb-8 sm:mb-10 text-pretty px-4 max-w-2xl mx-auto leading-relaxed">
