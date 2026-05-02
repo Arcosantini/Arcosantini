@@ -2,6 +2,7 @@ import type React from "react"
 import type { Metadata } from "next"
 import { Geist, Geist_Mono } from "next/font/google"
 import { Analytics } from "@vercel/analytics/next"
+import Script from "next/script"
 import "./globals.css"
 import SplashScreen from "@/components/splash-screen"
 import { DemoModeProvider } from "@/components/demo-mode-provider"
@@ -39,8 +40,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`font-sans antialiased bg-background text-foreground`} suppressHydrationWarning>
-        <script
+      <head>
+        <Script
+          id="theme-init"
+          strategy="beforeInteractive"
           dangerouslySetInnerHTML={{
             __html: `
               (function() {
@@ -50,6 +53,8 @@ export default function RootLayout({
             `,
           }}
         />
+      </head>
+      <body className={`font-sans antialiased bg-background text-foreground`} suppressHydrationWarning>
         <DemoModeProvider>
           <SplashScreen />
           {children}
