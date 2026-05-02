@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button"
-import { Shield, Users, Briefcase, MessageCircle, Star, CheckCircle, Phone, Mail, MapPin } from "lucide-react"
+import { Shield, Users, Briefcase, MessageCircle, Star, CheckCircle, Mail, MapPin } from "lucide-react"
 import Link from "next/link"
+import { TileLogo } from "@/components/tile-logo"
 
 export default function HomePage() {
   return (
@@ -36,10 +37,9 @@ export default function HomePage() {
           <div className="max-w-4xl mx-auto">
             {/* Tile Logo Banner */}
             <div className="mb-8 sm:mb-10">
-              <img 
-                src="/images/main-street-social-logo.png" 
-                alt="Main Street Social" 
-                className="mx-auto w-full max-w-2xl h-auto drop-shadow-2xl"
+              <TileLogo 
+                text="MAIN STREET SOCIAL" 
+                className="mx-auto w-full max-w-4xl h-auto drop-shadow-2xl rounded-sm"
               />
             </div>
             <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-6 sm:mb-8 text-balance leading-tight">
