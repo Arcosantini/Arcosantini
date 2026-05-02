@@ -1,19 +1,37 @@
-import type { Metadata } from 'next'
-import { Geist } from 'next/font/google'
-import { Analytics } from '@vercel/analytics/next'
-import './globals.css'
+import type React from "react"
+import type { Metadata } from "next"
+import { Geist, Geist_Mono } from "next/font/google"
+import { Analytics } from "@vercel/analytics/next"
+import Script from "next/script"
+import "./globals.css"
+import SplashScreen from "@/components/splash-screen"
+import { DemoModeProvider } from "@/components/demo-mode-provider"
 
-const geist = Geist({ subsets: ["latin"], weight: ['300', '400', '500', '600'] })
+const _geist = Geist({ subsets: ["latin"] })
+const _geistMono = Geist_Mono({ subsets: ["latin"] })
 
-export const metadata = {
-  title: 'The Humble Organizational | Organizing for Organizers',
-  description: 'THO - Professional organization solutions that empower organizers to transform spaces and lives with systematic excellence.',
-  keywords: ['organization', 'professional organizing', 'space optimization', 'organizers', 'THO'],
-  openGraph: {
-    title: 'The Humble Organizational',
-    description: 'Professional organization solutions that empower organizers to transform spaces and lives.',
+export const metadata: Metadata = {
+  title: "v0 App",
+  description: "Created with v0",
+  generator: "v0.app",
+  icons: {
+    icon: [
+      {
+        url: "/icon-light-32x32.png",
+        media: "(prefers-color-scheme: light)",
+      },
+      {
+        url: "/icon-dark-32x32.png",
+        media: "(prefers-color-scheme: dark)",
+      },
+      {
+        url: "/icon.svg",
+        type: "image/svg+xml",
+      },
+    ],
+    apple: "/apple-icon.png",
   },
-} satisfies Metadata
+}
 
 export default function RootLayout({
   children,
@@ -21,9 +39,26 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en" className="dark">
-      <body className={geist.className}>
-        {children}
+    <html lang="en">
+      <head>
+        <Script
+          id="theme-init"
+          strategy="beforeInteractive"
+          dangerouslySetInnerHTML={{
+            __html: `
+              (function() {
+                const theme = localStorage.getItem('mss-theme') || 'dark-blue';
+                document.documentElement.setAttribute('data-theme', theme);
+              })();
+            `,
+          }}
+        />
+      </head>
+      <body className={`font-sans antialiased bg-background text-foreground`} suppressHydrationWarning>
+        <DemoModeProvider>
+          <SplashScreen />
+          {children}
+        </DemoModeProvider>
         <Analytics />
       </body>
     </html>

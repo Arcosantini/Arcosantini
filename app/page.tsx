@@ -1,356 +1,324 @@
 import { Button } from "@/components/ui/button"
-import { Card } from "@/components/ui/card"
-import Image from "next/image"
+import { Shield, Users, Briefcase, MessageCircle, Star, CheckCircle, Mail, MapPin } from "lucide-react"
 import Link from "next/link"
-import { ArrowRight, Layers, Sparkles, Users, TrendingUp } from "lucide-react"
+import { TileLogo } from "@/components/tile-logo"
 
-export default function Home() {
+export default function HomePage() {
   return (
-    <div className="min-h-screen">
+    <div className="min-h-svh bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900">
       {/* Header */}
-      <header className="border-b border-border">
-        <nav className="mx-auto max-w-7xl px-6 py-6 lg:px-8">
-          <div className="flex items-center justify-between">
-            <Link href="/" className="flex items-center gap-3">
-              <Image src="/logo.svg" alt="The Humble Organizational" width={50} height={62} className="h-12 w-auto" />
-              <div className="flex flex-col">
-                <span className="font-light text-xl tracking-[0.15em] text-foreground">HUMBLE</span>
-                <span className="font-light text-xs tracking-[0.2em] text-muted-foreground">ORGANIZATIONAL</span>
-              </div>
-            </Link>
-            <div className="hidden items-center gap-8 md:flex">
-              <Link
-                href="#services"
-                className="text-sm font-light tracking-wide text-foreground hover:text-muted-foreground transition-colors"
-              >
-                Services
-              </Link>
-              <Link
-                href="#ventures"
-                className="text-sm font-light tracking-wide text-foreground hover:text-muted-foreground transition-colors"
-              >
-                Ventures
-              </Link>
-              <Link
-                href="/about"
-                className="text-sm font-light tracking-wide text-foreground hover:text-muted-foreground transition-colors"
-              >
-                About
-              </Link>
-              <Link
-                href="#contact"
-                className="text-sm font-light tracking-wide text-foreground hover:text-muted-foreground transition-colors"
-              >
-                Contact
-              </Link>
-              <Button className="bg-primary text-primary-foreground hover:bg-primary/90 font-light tracking-wide">
-                Get Started
-              </Button>
+      <header className="border-b border-slate-700 bg-slate-900/80 backdrop-blur-sm sticky top-0 z-50">
+        <div className="container mx-auto px-4 py-3 sm:py-4 flex items-center justify-between">
+          <div className="flex flex-col">
+            <div className="flex items-center gap-2">
+              <Shield className="h-6 w-6 sm:h-8 sm:w-8 text-blue-400 shrink-0" />
+              <span className="text-xl sm:text-2xl font-bold text-white">MSS</span>
             </div>
+            <img 
+              src="/images/main-street-social-brick.jpg" 
+              alt="Main Street Social" 
+              className="h-7 sm:h-9 w-auto rounded-sm mt-1"
+            />
           </div>
-        </nav>
+          <div className="flex gap-2 sm:gap-3">
+            <Button asChild variant="ghost" size="sm" className="text-slate-200 hover:text-white h-9 sm:h-10 text-sm">
+              <Link href="/auth/login">Login</Link>
+            </Button>
+            <Button asChild size="sm" className="bg-blue-600 hover:bg-blue-700 h-9 sm:h-10 text-sm">
+              <Link href="/auth/sign-up">Sign Up</Link>
+            </Button>
+          </div>
+        </div>
       </header>
 
-      {/* Hero Section */}
-      <section className="mx-auto max-w-7xl px-6 py-24 lg:px-8 lg:py-32">
-        <div className="grid gap-12 lg:grid-cols-2 lg:gap-16 items-center">
-          <div className="space-y-8">
-            <div className="inline-block rounded-sm border border-border px-4 py-2">
-              <span className="text-xs font-light tracking-[0.2em] text-muted-foreground">
-                ORGANIZING FOR ORGANIZERS
-              </span>
+      <main>
+        {/* Hero Section */}
+        <section className="container mx-auto px-4 py-12 sm:py-16 md:py-20 text-center">
+          <div className="max-w-4xl mx-auto">
+            {/* Tile Logo Banner */}
+            <div className="mb-8 sm:mb-10">
+              <TileLogo 
+                text="MAIN STREET SOCIAL" 
+                className="mx-auto w-full max-w-4xl h-auto drop-shadow-2xl rounded-sm"
+              />
             </div>
-            <h1 className="text-5xl font-light leading-tight tracking-tight text-balance lg:text-7xl">
-              Structure meets
-              <br />
-              <span className="font-normal">excellence.</span>
+            <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-6 sm:mb-8 text-balance leading-tight">
+              The Professional Network for Main Street
             </h1>
-            <p className="text-lg font-light leading-relaxed text-muted-foreground text-pretty max-w-xl">
-              The Humble Organizational empowers professional organizers with systematic frameworks, curated resources,
-              and business solutions that transform complexity into clarity.
+            <p className="text-lg sm:text-xl md:text-2xl text-slate-300 mb-8 sm:mb-10 text-pretty px-4 max-w-2xl mx-auto leading-relaxed">
+              Connect with security professionals, discover job opportunities, and build your career in the bar and nightlife industry.
             </p>
-            <div className="flex flex-wrap gap-4">
-              <Button
-                size="lg"
-                className="bg-primary text-primary-foreground hover:bg-primary/90 font-light tracking-wide"
-              >
-                Explore THO
-                <ArrowRight className="ml-2 h-4 w-4" />
-              </Button>
-              <Button size="lg" variant="outline" className="font-light tracking-wide bg-transparent">
-                Our Philosophy
-              </Button>
-            </div>
-          </div>
-          <div className="relative">
-            <div className="aspect-square rounded-sm bg-card border border-border overflow-hidden">
-              <Image
-                src="/minimalist-organized-workspace-with-clean-lines-an.jpg"
-                alt="Organized workspace"
-                width={600}
-                height={600}
-                className="h-full w-full object-cover"
-              />
-            </div>
-            <div className="absolute -bottom-6 -left-6 rounded-sm bg-primary p-8 text-primary-foreground">
-              <div className="text-4xl font-light">THO</div>
-              <div className="text-xs font-light tracking-[0.2em] mt-1">EST. 2025</div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Core Offering Section */}
-      <section id="services" className="bg-card border-y border-border">
-        <div className="mx-auto max-w-7xl px-6 py-24 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl font-light tracking-tight text-balance lg:text-5xl">
-              The THO <span className="font-normal">Difference</span>
-            </h2>
-            <p className="mt-4 text-lg font-light text-muted-foreground text-pretty max-w-2xl mx-auto">
-              We provide the infrastructure that allows organizers to focus on what they do best
-            </p>
-          </div>
-          <div className="grid gap-8 md:grid-cols-3">
-            <Card className="p-8 border-border hover:border-foreground/20 transition-colors">
-              <Layers className="h-10 w-10 mb-6 text-foreground" />
-              <h3 className="text-xl font-normal mb-3 tracking-wide">Systematic Frameworks</h3>
-              <p className="text-sm font-light leading-relaxed text-muted-foreground">
-                Battle-tested organizational systems that scale from single rooms to entire estates
-              </p>
-            </Card>
-            <Card className="p-8 border-border hover:border-foreground/20 transition-colors">
-              <Sparkles className="h-10 w-10 mb-6 text-foreground" />
-              <h3 className="text-xl font-normal mb-3 tracking-wide">Curated Resources</h3>
-              <p className="text-sm font-light leading-relaxed text-muted-foreground">
-                Premium tools, templates, and materials selected specifically for professional organizers
-              </p>
-            </Card>
-            <Card className="p-8 border-border hover:border-foreground/20 transition-colors">
-              <Users className="h-10 w-10 mb-6 text-foreground" />
-              <h3 className="text-xl font-normal mb-3 tracking-wide">Community Support</h3>
-              <p className="text-sm font-light leading-relaxed text-muted-foreground">
-                Connect with fellow organizers, share insights, and grow together as a collective
-              </p>
-            </Card>
-          </div>
-        </div>
-      </section>
-
-      {/* Business Ventures Section */}
-      <section id="ventures" className="mx-auto max-w-7xl px-6 py-24 lg:px-8">
-        <div className="mb-16">
-          <h2 className="text-4xl font-light tracking-tight text-balance lg:text-5xl mb-4">
-            Our <span className="font-normal">Ecosystem</span>
-          </h2>
-          <p className="text-lg font-light text-muted-foreground text-pretty max-w-2xl">
-            From The Humble Organizational foundation, we&apos;re building complementary ventures that serve the broader
-            organization and productivity space
-          </p>
-        </div>
-        <div className="grid gap-6 lg:grid-cols-2">
-          <Card className="p-0 overflow-hidden border-border group hover:border-foreground/20 transition-colors">
-            <div className="aspect-[16/10] relative overflow-hidden">
-              <Image
-                src="/modern-organizing-supplies-and-tools-neatly-arrang.jpg"
-                alt="THO Primary Business"
-                width={640}
-                height={400}
-                className="h-full w-full object-cover group-hover:scale-105 transition-transform duration-300"
-              />
-              <div className="absolute top-4 left-4 rounded-sm bg-primary px-3 py-1 text-xs font-light tracking-[0.15em] text-primary-foreground">
-                PRIMARY
-              </div>
-            </div>
-            <div className="p-8">
-              <h3 className="text-2xl font-normal mb-3 tracking-wide">The Humble Organizational</h3>
-              <p className="text-sm font-light leading-relaxed text-muted-foreground mb-6">
-                Our flagship offering: comprehensive systems, training, and resources designed specifically for
-                professional organizers who demand excellence
-              </p>
-              <Button variant="outline" className="font-light tracking-wide group bg-transparent">
-                Learn More
-                <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
-              </Button>
-            </div>
-          </Card>
-
-          <div className="space-y-6">
-            <Card className="p-6 border-border hover:border-foreground/20 transition-colors">
-              <div className="flex items-start justify-between mb-4">
-                <div>
-                  <div className="inline-block rounded-sm bg-muted px-2 py-1 text-[10px] font-light tracking-[0.15em] text-muted-foreground mb-2">
-                    COMING SOON
-                  </div>
-                  <h3 className="text-xl font-normal tracking-wide">Space Optimization Studio</h3>
-                </div>
-                <TrendingUp className="h-6 w-6 text-muted-foreground" />
-              </div>
-              <p className="text-sm font-light leading-relaxed text-muted-foreground">
-                Advanced spatial design consultancy for residential and commercial organizing projects
-              </p>
-            </Card>
-
-            <Card className="p-6 border-border hover:border-foreground/20 transition-colors">
-              <div className="flex items-start justify-between mb-4">
-                <div>
-                  <div className="inline-block rounded-sm bg-muted px-2 py-1 text-[10px] font-light tracking-[0.15em] text-muted-foreground mb-2">
-                    IN DEVELOPMENT
-                  </div>
-                  <h3 className="text-xl font-normal tracking-wide">Organizer&apos;s Marketplace</h3>
-                </div>
-                <Sparkles className="h-6 w-6 text-muted-foreground" />
-              </div>
-              <p className="text-sm font-light leading-relaxed text-muted-foreground">
-                Curated platform connecting professional organizers with premium suppliers and tools
-              </p>
-            </Card>
-
-            <Card className="p-6 border-border hover:border-foreground/20 transition-colors">
-              <div className="flex items-start justify-between mb-4">
-                <div>
-                  <div className="inline-block rounded-sm bg-muted px-2 py-1 text-[10px] font-light tracking-[0.15em] text-muted-foreground mb-2">
-                    PLANNING
-                  </div>
-                  <h3 className="text-xl font-normal tracking-wide">Systems Certification Program</h3>
-                </div>
-                <Users className="h-6 w-6 text-muted-foreground" />
-              </div>
-              <p className="text-sm font-light leading-relaxed text-muted-foreground">
-                Professional development and certification for organizers seeking mastery and recognition
-              </p>
-            </Card>
-          </div>
-        </div>
-      </section>
-
-      {/* CTA Section */}
-      <section id="contact" className="bg-primary text-primary-foreground">
-        <div className="mx-auto max-w-7xl px-6 py-24 lg:px-8">
-          <div className="text-center max-w-3xl mx-auto">
-            <h2 className="text-4xl font-light tracking-tight text-balance lg:text-5xl mb-6">
-              Ready to elevate your
-              <br />
-              <span className="font-normal">organizing practice?</span>
-            </h2>
-            <p className="text-lg font-light leading-relaxed mb-8 opacity-90 text-pretty">
-              Join The Humble Organizational community and access the frameworks, resources, and support that
-              professional organizers trust
-            </p>
-            <div className="flex flex-wrap gap-4 justify-center">
-              <Button asChild size="lg" variant="secondary" className="font-light tracking-wide">
-                <Link href="/book">
-                  Schedule Consultation
-                  <ArrowRight className="ml-2 h-4 w-4" />
-                </Link>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center px-4">
+              <Button asChild size="lg" className="bg-blue-600 hover:bg-blue-700 h-14 text-lg px-8 w-full sm:w-auto font-semibold shadow-lg shadow-blue-600/25">
+                <Link href="/auth/sign-up">Get Started Free</Link>
               </Button>
               <Button
+                asChild
                 size="lg"
                 variant="outline"
-                className="bg-transparent border-primary-foreground/20 text-primary-foreground hover:bg-primary-foreground/10 font-light tracking-wide"
+                className="border-slate-500 text-white hover:bg-slate-800 bg-transparent h-14 text-lg px-8 w-full sm:w-auto font-semibold"
               >
-                View Pricing
+                <Link href="/auth/login">Sign In</Link>
               </Button>
             </div>
           </div>
-        </div>
-      </section>
+        </section>
 
-      {/* Footer */}
-      <footer className="border-t border-border">
-        <div className="mx-auto max-w-7xl px-6 py-12 lg:px-8">
-          <div className="grid gap-8 md:grid-cols-4">
-            <div className="md:col-span-2">
-              <Link href="/" className="flex items-center gap-3 mb-4">
-                <Image src="/logo.svg" alt="THO" width={40} height={50} className="h-10 w-auto" />
-                <div className="flex flex-col">
-                  <span className="font-light text-lg tracking-[0.15em] text-foreground">HUMBLE</span>
-                  <span className="font-light text-[10px] tracking-[0.2em] text-muted-foreground">ORGANIZATIONAL</span>
-                </div>
-              </Link>
-              <p className="text-sm font-light leading-relaxed text-muted-foreground max-w-md">
-                Organizing for Organizers. Building systematic excellence through professional frameworks and community
-                support.
+        {/* Trust Banner */}
+        <section className="bg-slate-800/50 border-y border-slate-700 py-8 sm:py-10">
+          <div className="container mx-auto px-4">
+            <p className="text-center text-slate-400 text-sm sm:text-base uppercase tracking-wider font-medium mb-6">
+              Trusted by Security Professionals Across Main Street
+            </p>
+            <div className="flex flex-wrap justify-center items-center gap-6 sm:gap-12">
+              <div className="flex items-center gap-2 text-slate-300">
+                <CheckCircle className="h-5 w-5 text-green-400" />
+                <span className="text-sm sm:text-base">Verified Professionals</span>
+              </div>
+              <div className="flex items-center gap-2 text-slate-300">
+                <CheckCircle className="h-5 w-5 text-green-400" />
+                <span className="text-sm sm:text-base">Direct Employer Connections</span>
+              </div>
+              <div className="flex items-center gap-2 text-slate-300">
+                <CheckCircle className="h-5 w-5 text-green-400" />
+                <span className="text-sm sm:text-base">Secure Messaging</span>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Value Proposition Section */}
+        <section className="container mx-auto px-4 py-16 sm:py-20">
+          <div className="max-w-3xl mx-auto text-center mb-12 sm:mb-16">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-4 sm:mb-6">
+              Your Trusted Partner in Bar Security Careers
+            </h2>
+            <p className="text-base sm:text-lg text-slate-400 leading-relaxed">
+              Main Street Social connects security professionals directly with venues and employers. No middlemen, no brokers - just direct connections that help you build your career.
+            </p>
+          </div>
+
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8">
+            <div className="flex flex-col items-center text-center p-6 sm:p-8 rounded-xl bg-slate-800/50 border border-slate-700 hover:border-slate-600 transition-colors">
+              <div className="w-16 h-16 rounded-full bg-blue-500/10 flex items-center justify-center mb-5">
+                <Users className="h-8 w-8 text-blue-400" />
+              </div>
+              <h3 className="text-lg sm:text-xl font-semibold text-white mb-3">Build Your Network</h3>
+              <p className="text-sm sm:text-base text-slate-400 leading-relaxed">
+                Connect with security professionals across the industry and grow your professional circle.
               </p>
             </div>
+            <div className="flex flex-col items-center text-center p-6 sm:p-8 rounded-xl bg-slate-800/50 border border-slate-700 hover:border-slate-600 transition-colors">
+              <div className="w-16 h-16 rounded-full bg-green-500/10 flex items-center justify-center mb-5">
+                <Briefcase className="h-8 w-8 text-green-400" />
+              </div>
+              <h3 className="text-lg sm:text-xl font-semibold text-white mb-3">Find Opportunities</h3>
+              <p className="text-sm sm:text-base text-slate-400 leading-relaxed">
+                Discover job openings at top venues and events. Get hired directly by employers.
+              </p>
+            </div>
+            <div className="flex flex-col items-center text-center p-6 sm:p-8 rounded-xl bg-slate-800/50 border border-slate-700 hover:border-slate-600 transition-colors">
+              <div className="w-16 h-16 rounded-full bg-purple-500/10 flex items-center justify-center mb-5">
+                <Shield className="h-8 w-8 text-purple-400" />
+              </div>
+              <h3 className="text-lg sm:text-xl font-semibold text-white mb-3">Showcase Skills</h3>
+              <p className="text-sm sm:text-base text-slate-400 leading-relaxed">
+                Highlight your experience, certifications, and training to stand out.
+              </p>
+            </div>
+            <div className="flex flex-col items-center text-center p-6 sm:p-8 rounded-xl bg-slate-800/50 border border-slate-700 hover:border-slate-600 transition-colors">
+              <div className="w-16 h-16 rounded-full bg-orange-500/10 flex items-center justify-center mb-5">
+                <MessageCircle className="h-8 w-8 text-orange-400" />
+              </div>
+              <h3 className="text-lg sm:text-xl font-semibold text-white mb-3">Stay Connected</h3>
+              <p className="text-sm sm:text-base text-slate-400 leading-relaxed">
+                Communicate directly with employers and peers through secure messaging.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        {/* Testimonials Section */}
+        <section className="bg-slate-800/30 py-16 sm:py-20">
+          <div className="container mx-auto px-4">
+            <div className="text-center mb-12">
+              <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-4">
+                What Our Members Say
+              </h2>
+              <p className="text-slate-400 text-base sm:text-lg">
+                Hear from security professionals who have grown their careers with MSS.
+              </p>
+            </div>
+
+            <div className="grid md:grid-cols-3 gap-6 lg:gap-8 max-w-6xl mx-auto">
+              <div className="bg-slate-800/50 border border-slate-700 rounded-xl p-6 sm:p-8">
+                <div className="flex gap-1 mb-4">
+                  {[...Array(5)].map((_, i) => (
+                    <Star key={i} className="h-5 w-5 text-yellow-400 fill-yellow-400" />
+                  ))}
+                </div>
+                <p className="text-slate-300 text-base leading-relaxed mb-6 italic">
+                  &quot;MSS connected me with my current employer within a week of signing up. The direct communication with hiring managers made all the difference.&quot;
+                </p>
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 rounded-full bg-blue-500/20 flex items-center justify-center">
+                    <span className="text-blue-400 font-semibold">JM</span>
+                  </div>
+                  <div>
+                    <p className="text-white font-medium">James M.</p>
+                    <p className="text-slate-500 text-sm">Security Professional</p>
+                  </div>
+                </div>
+              </div>
+
+              <div className="bg-slate-800/50 border border-slate-700 rounded-xl p-6 sm:p-8">
+                <div className="flex gap-1 mb-4">
+                  {[...Array(5)].map((_, i) => (
+                    <Star key={i} className="h-5 w-5 text-yellow-400 fill-yellow-400" />
+                  ))}
+                </div>
+                <p className="text-slate-300 text-base leading-relaxed mb-6 italic">
+                  &quot;Finally, a platform built specifically for our industry. The job listings are relevant and the networking features help me stay connected.&quot;
+                </p>
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 rounded-full bg-green-500/20 flex items-center justify-center">
+                    <span className="text-green-400 font-semibold">SK</span>
+                  </div>
+                  <div>
+                    <p className="text-white font-medium">Sarah K.</p>
+                    <p className="text-slate-500 text-sm">Venue Security Manager</p>
+                  </div>
+                </div>
+              </div>
+
+              <div className="bg-slate-800/50 border border-slate-700 rounded-xl p-6 sm:p-8">
+                <div className="flex gap-1 mb-4">
+                  {[...Array(5)].map((_, i) => (
+                    <Star key={i} className="h-5 w-5 text-yellow-400 fill-yellow-400" />
+                  ))}
+                </div>
+                <p className="text-slate-300 text-base leading-relaxed mb-6 italic">
+                  &quot;As a venue owner, finding qualified security staff used to be a challenge. MSS makes it easy to find verified professionals quickly.&quot;
+                </p>
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 rounded-full bg-purple-500/20 flex items-center justify-center">
+                    <span className="text-purple-400 font-semibold">RD</span>
+                  </div>
+                  <div>
+                    <p className="text-white font-medium">Robert D.</p>
+                    <p className="text-slate-500 text-sm">Bar Owner</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* CTA Section */}
+        <section className="container mx-auto px-4 py-16 sm:py-20">
+          <div className="max-w-3xl mx-auto text-center bg-gradient-to-br from-blue-600/20 to-purple-600/20 border border-slate-700 rounded-2xl p-8 sm:p-12">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-4">
+              Ready to Grow Your Career?
+            </h2>
+            <p className="text-slate-300 text-base sm:text-lg mb-8 max-w-xl mx-auto">
+              Join Main Street Social today and connect with opportunities in the bar security industry.
+            </p>
+            <Button asChild size="lg" className="bg-blue-600 hover:bg-blue-700 h-14 text-lg px-10 font-semibold shadow-lg shadow-blue-600/25">
+              <Link href="/auth/sign-up">Create Your Free Profile</Link>
+            </Button>
+          </div>
+        </section>
+      </main>
+
+      {/* Enhanced Footer */}
+      <footer className="border-t border-slate-700 bg-slate-900">
+        <div className="container mx-auto px-4 py-12 sm:py-16">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mb-12">
+            {/* Brand Column */}
+            <div className="col-span-2 md:col-span-1">
+              <div className="flex items-center gap-2 mb-4">
+                <Shield className="h-6 w-6 text-blue-400" />
+                <span className="text-xl font-bold text-white">MSS</span>
+              </div>
+              <p className="text-slate-400 text-sm leading-relaxed mb-4">
+                The professional network for bar security. Connecting professionals with opportunities since 2025.
+              </p>
+              <img 
+                src="/images/main-street-social-brick.jpg" 
+                alt="Main Street Social" 
+                className="h-8 w-auto rounded-sm opacity-75"
+              />
+            </div>
+
+            {/* Quick Links */}
             <div>
-              <h4 className="text-sm font-normal tracking-wide mb-4">Company</h4>
-              <ul className="space-y-3">
+              <h4 className="text-white font-semibold mb-4">Quick Links</h4>
+              <ul className="space-y-2">
                 <li>
-                  <Link
-                    href="/about"
-                    className="text-sm font-light text-muted-foreground hover:text-foreground transition-colors"
-                  >
-                    About
+                  <Link href="/auth/sign-up" className="text-slate-400 hover:text-white text-sm transition-colors">
+                    Sign Up
                   </Link>
                 </li>
                 <li>
-                  <Link
-                    href="#"
-                    className="text-sm font-light text-muted-foreground hover:text-foreground transition-colors"
-                  >
-                    Ventures
+                  <Link href="/auth/login" className="text-slate-400 hover:text-white text-sm transition-colors">
+                    Login
                   </Link>
                 </li>
                 <li>
-                  <Link
-                    href="#"
-                    className="text-sm font-light text-muted-foreground hover:text-foreground transition-colors"
-                  >
-                    Blog
+                  <Link href="/jobs" className="text-slate-400 hover:text-white text-sm transition-colors">
+                    Job Board
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/people" className="text-slate-400 hover:text-white text-sm transition-colors">
+                    Find People
                   </Link>
                 </li>
               </ul>
             </div>
+
+            {/* Legal */}
             <div>
-              <h4 className="text-sm font-normal tracking-wide mb-4">Connect</h4>
+              <h4 className="text-white font-semibold mb-4">Legal</h4>
+              <ul className="space-y-2">
+                <li>
+                  <Link href="/privacy" className="text-slate-400 hover:text-white text-sm transition-colors">
+                    Privacy Policy
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/terms" className="text-slate-400 hover:text-white text-sm transition-colors">
+                    Terms of Service
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/data-deletion" className="text-slate-400 hover:text-white text-sm transition-colors">
+                    Data Deletion
+                  </Link>
+                </li>
+              </ul>
+            </div>
+
+            {/* Contact */}
+            <div>
+              <h4 className="text-white font-semibold mb-4">Contact</h4>
               <ul className="space-y-3">
-                <li>
-                  <Link
-                    href="#"
-                    className="text-sm font-light text-muted-foreground hover:text-foreground transition-colors"
-                  >
-                    Contact
-                  </Link>
+                <li className="flex items-center gap-2 text-slate-400 text-sm">
+                  <Mail className="h-4 w-4 text-slate-500" />
+                  <span>support@mainstreetsocial.com</span>
                 </li>
-                <li>
-                  <Link
-                    href="#"
-                    className="text-sm font-light text-muted-foreground hover:text-foreground transition-colors"
-                  >
-                    Community
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    href="#"
-                    className="text-sm font-light text-muted-foreground hover:text-foreground transition-colors"
-                  >
-                    Support
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    href="/jlwpublishing"
-                    className="text-sm font-light text-muted-foreground hover:text-foreground transition-colors"
-                  >
-                    JLWPublishing
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    href="/castle-project"
-                    className="text-sm font-light text-muted-foreground hover:text-foreground transition-colors"
-                  >
-                    The Castle Project
-                  </Link>
+                <li className="flex items-center gap-2 text-slate-400 text-sm">
+                  <MapPin className="h-4 w-4 text-slate-500" />
+                  <span>Houston, TX</span>
                 </li>
               </ul>
             </div>
           </div>
-          <div className="mt-12 pt-8 border-t border-border">
-            <p className="text-xs font-light tracking-wide text-muted-foreground text-center">
-              © 2025 The Humble Organizational. All rights reserved.
+
+          {/* Bottom Bar */}
+          <div className="border-t border-slate-800 pt-8">
+            <p className="text-center text-slate-500 text-sm">
+              &copy; {new Date().getFullYear()} Main Street Social. All rights reserved. Professional networking for bar security.
             </p>
           </div>
         </div>
