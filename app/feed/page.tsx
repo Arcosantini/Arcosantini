@@ -14,6 +14,7 @@ import { useToast } from "@/hooks/use-toast"
 import { NavDropdown } from "@/components/nav-dropdown"
 import { MessageNotificationIcon } from "@/components/message-notification-icon"
 import { BottomNav } from "@/components/bottom-nav"
+import { FeedPageSkeleton, PostCardSkeleton } from "@/components/skeletons"
 
 interface Post {
   id: string
@@ -38,7 +39,10 @@ export default function FeedPage() {
   const [user, setUser] = useState<any>(null)
   const [posts, setPosts] = useState<Post[]>([])
   const [loading, setLoading] = useState(true)
+  const [loadingMore, setLoadingMore] = useState(false)
+  const [hasMore, setHasMore] = useState(true)
   const [isAdmin, setIsAdmin] = useState(false)
+  const POSTS_PER_PAGE = 10
   const supabase = createClient()
 
   useEffect(() => {
@@ -73,12 +77,13 @@ export default function FeedPage() {
     }
   }
 
-  const fetchPosts = async (userId: string) => {
+  const fetchPosts = async (userId: string, offset = 0, append = false) => {
     try {
       const { data: postsData, error: postsError } = await supabase
         .from("posts")
         .select("*")
         .order("created_at", { ascending: false })
+        .range(offset, offset + POSTS_PER_PAGE - 1)
 
       if (postsError) {
         console.error("Posts error:", postsError)
@@ -86,9 +91,13 @@ export default function FeedPage() {
       }
 
       if (!postsData || postsData.length === 0) {
-        setPosts([])
+        if (!append) setPosts([])
+        setHasMore(false)
         return
       }
+
+      // Check if there are more posts
+      setHasMore(postsData.length === POSTS_PER_PAGE)
 
       const authorIds = [...new Set(postsData.map((post) => post.author_id))]
 
@@ -117,7 +126,11 @@ export default function FeedPage() {
           likesData?.filter((like) => like.post_id === post.id).map((like) => ({ user_id: like.user_id })) || [],
       }))
 
-      setPosts(formattedPosts)
+      if (append) {
+        setPosts((prev) => [...prev, ...formattedPosts])
+      } else {
+        setPosts(formattedPosts)
+      }
     } catch (error) {
       console.error("Error fetching posts:", error)
       setPosts([])
@@ -126,8 +139,16 @@ export default function FeedPage() {
 
   const handlePostCreated = async () => {
     if (user) {
+      setHasMore(true)
       await fetchPosts(user.id)
     }
+  }
+
+  const loadMorePosts = async () => {
+    if (!user || loadingMore || !hasMore) return
+    setLoadingMore(true)
+    await fetchPosts(user.id, posts.length, true)
+    setLoadingMore(false)
   }
 
   const handleSignOut = async () => {
@@ -141,11 +162,7 @@ export default function FeedPage() {
   }
 
   if (loading) {
-    return (
-      <div className="min-h-svh bg-background flex items-center justify-center">
-        <div className="text-foreground">Loading...</div>
-      </div>
-    )
+    return <FeedPageSkeleton />
   }
 
   return (
@@ -193,7 +210,27 @@ export default function FeedPage() {
             </CardContent>
           </Card>
         ) : (
-          posts.map((post) => <PostCard key={post.id} post={post as any} currentUserId={user?.id} />)
+          <>
+            {posts.map((post) => <PostCard key={post.id} post={post as any} currentUserId={user?.id} />)}
+            
+            {hasMore && (
+              <div className="flex justify-center py-4">
+                <Button
+                  variant="outline"
+                  onClick={loadMorePosts}
+                  disabled={loadingMore}
+                  className="w-full max-w-xs"
+                >
+                  {loadingMore ? (
+                      <span className="flex items-center gap-2">
+                        <span className="h-4 w-4 animate-spin rounded-full border-2 border-current border-t-transparent" />
+                        Loading...
+                      </span>
+                    ) : "Load More Posts"}
+                </Button>
+              </div>
+            )}
+          </>
         )}
       </main>
 

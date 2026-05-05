@@ -16,6 +16,7 @@ import { useToast } from "@/hooks/use-toast"
 import { NavDropdown } from "@/components/nav-dropdown"
 import { BottomNav } from "@/components/bottom-nav"
 import Image from "next/image"
+import { IncidentReportsPageSkeleton } from "@/components/skeletons"
 
 interface IncidentReport {
   id: string
@@ -43,6 +44,9 @@ export default function IncidentReportsPage() {
   const [user, setUser] = useState<any>(null)
   const [reports, setReports] = useState<IncidentReport[]>([])
   const [loading, setLoading] = useState(true)
+  const [loadingMore, setLoadingMore] = useState(false)
+  const [hasMore, setHasMore] = useState(true)
+  const REPORTS_PER_PAGE = 10
   const [showForm, setShowForm] = useState(false)
   const [editingReport, setEditingReport] = useState<IncidentReport | null>(null)
   const [showEditForm, setShowEditForm] = useState(false)
@@ -94,7 +98,7 @@ export default function IncidentReportsPage() {
     }
   }
 
-  const fetchReports = async () => {
+  const fetchReports = async (offset = 0, append = false) => {
     try {
       const { data, error } = await supabase
         .from("incident_reports")
@@ -107,13 +111,28 @@ export default function IncidentReportsPage() {
           )
         `)
         .order("created_at", { ascending: false })
+        .range(offset, offset + REPORTS_PER_PAGE - 1)
 
       if (error) throw error
-      setReports(data || [])
+      
+      setHasMore((data?.length || 0) === REPORTS_PER_PAGE)
+      
+      if (append) {
+        setReports((prev) => [...prev, ...(data || [])])
+      } else {
+        setReports(data || [])
+      }
     } catch (error) {
       console.error("Error fetching reports:", error)
       toast({ title: "Failed to load reports", variant: "destructive" })
     }
+  }
+
+  const loadMoreReports = async () => {
+    if (loadingMore || !hasMore) return
+    setLoadingMore(true)
+    await fetchReports(reports.length, true)
+    setLoadingMore(false)
   }
 
   const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -346,11 +365,7 @@ export default function IncidentReportsPage() {
   }
 
   if (loading) {
-    return (
-      <div className="min-h-svh bg-slate-950 flex items-center justify-center">
-        <div className="text-white">Loading...</div>
-      </div>
-    )
+    return <IncidentReportsPageSkeleton />
   }
 
   return (
@@ -832,6 +847,24 @@ export default function IncidentReportsPage() {
                   </CardContent>
                 </Card>
               ))
+          )}
+          
+          {reports.length > 0 && hasMore && (
+            <div className="flex justify-center py-4">
+              <Button
+                variant="outline"
+                onClick={loadMoreReports}
+                disabled={loadingMore}
+                className="w-full max-w-xs"
+              >
+                {loadingMore ? (
+                  <span className="flex items-center gap-2">
+                    <span className="h-4 w-4 animate-spin rounded-full border-2 border-current border-t-transparent" />
+                    Loading...
+                  </span>
+                ) : "Load More Reports"}
+              </Button>
+            </div>
           )}
         </div>
       </main>

@@ -67,16 +67,19 @@ export function MessageThread({ otherUserId, currentUserId }: MessageThreadProps
   }, [otherUserId, currentUserId])
 
   const loadMessages = async () => {
+    // Load last 100 messages (paginated)
     const { data } = await supabase
       .from("messages")
       .select("*")
       .or(
         `and(sender_id.eq.${currentUserId},recipient_id.eq.${otherUserId}),and(sender_id.eq.${otherUserId},recipient_id.eq.${currentUserId})`,
       )
-      .order("created_at", { ascending: true })
+      .order("created_at", { ascending: false })
+      .limit(100)
 
     if (data) {
-      setMessages(data)
+      // Reverse to show oldest first in UI
+      setMessages(data.reverse())
       scrollToBottom()
 
       // Mark messages as read
