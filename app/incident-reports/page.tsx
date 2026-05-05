@@ -43,6 +43,9 @@ export default function IncidentReportsPage() {
   const [user, setUser] = useState<any>(null)
   const [reports, setReports] = useState<IncidentReport[]>([])
   const [loading, setLoading] = useState(true)
+  const [loadingMore, setLoadingMore] = useState(false)
+  const [hasMore, setHasMore] = useState(true)
+  const REPORTS_PER_PAGE = 10
   const [showForm, setShowForm] = useState(false)
   const [editingReport, setEditingReport] = useState<IncidentReport | null>(null)
   const [showEditForm, setShowEditForm] = useState(false)
@@ -94,7 +97,7 @@ export default function IncidentReportsPage() {
     }
   }
 
-  const fetchReports = async () => {
+  const fetchReports = async (offset = 0, append = false) => {
     try {
       const { data, error } = await supabase
         .from("incident_reports")
@@ -107,13 +110,28 @@ export default function IncidentReportsPage() {
           )
         `)
         .order("created_at", { ascending: false })
+        .range(offset, offset + REPORTS_PER_PAGE - 1)
 
       if (error) throw error
-      setReports(data || [])
+      
+      setHasMore((data?.length || 0) === REPORTS_PER_PAGE)
+      
+      if (append) {
+        setReports((prev) => [...prev, ...(data || [])])
+      } else {
+        setReports(data || [])
+      }
     } catch (error) {
       console.error("Error fetching reports:", error)
       toast({ title: "Failed to load reports", variant: "destructive" })
     }
+  }
+
+  const loadMoreReports = async () => {
+    if (loadingMore || !hasMore) return
+    setLoadingMore(true)
+    await fetchReports(reports.length, true)
+    setLoadingMore(false)
   }
 
   const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -832,6 +850,19 @@ export default function IncidentReportsPage() {
                   </CardContent>
                 </Card>
               ))
+          )}
+          
+          {reports.length > 0 && hasMore && (
+            <div className="flex justify-center py-4">
+              <Button
+                variant="outline"
+                onClick={loadMoreReports}
+                disabled={loadingMore}
+                className="w-full max-w-xs"
+              >
+                {loadingMore ? "Loading..." : "Load More Reports"}
+              </Button>
+            </div>
           )}
         </div>
       </main>

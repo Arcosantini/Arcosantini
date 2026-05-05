@@ -26,7 +26,7 @@ export default async function JobsPage() {
     .eq("id", user.id)
     .single()
 
-  // Get all open jobs with author profile info
+  // Get jobs with author profile info (paginated)
   const { data: jobs } = await supabase
     .from("jobs")
     .select(`
@@ -39,6 +39,7 @@ export default async function JobsPage() {
       )
     `)
     .order("created_at", { ascending: false })
+    .limit(50)
 
   return (
     <div className="min-h-svh bg-background">

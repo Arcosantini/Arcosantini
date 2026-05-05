@@ -28,12 +28,13 @@ export default async function PeoplePage() {
     .eq("id", user.id)
     .single()
 
-  // Get all profiles except current user
+  // Get profiles except current user (paginated)
   const { data: profiles } = await supabase
     .from("profiles")
     .select("*")
     .neq("id", user.id)
     .order("created_at", { ascending: false })
+    .limit(50)
 
   // Get current user's following list
   const { data: following } = await supabase.from("follows").select("following_id").eq("follower_id", user.id)

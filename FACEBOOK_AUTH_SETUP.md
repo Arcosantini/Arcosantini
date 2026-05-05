@@ -65,14 +65,14 @@ Facebook OAuth allows users to sign in to your app using their Facebook account,
 
 1. In the left sidebar, click **Facebook Login** → **Settings**
 2. In **Valid OAuth Redirect URIs**, add your Supabase callback URL:
-   ```
+   \`\`\`
    https://YOUR_PROJECT_REF.supabase.co/auth/v1/callback
-   ```
+   \`\`\`
 3. Also add your app's callback URL:
-   ```
+   \`\`\`
    http://localhost:3000/auth/callback
    https://yourdomain.com/auth/callback
-   ```
+   \`\`\`
 4. **Client OAuth Login**: Set to **Yes**
 5. **Web OAuth Login**: Set to **Yes**
 6. **Enforce HTTPS**: Set to **Yes**
@@ -159,9 +159,9 @@ Facebook OAuth allows users to sign in to your app using their Facebook account,
 
 1. In Facebook Developer dashboard, go to **Facebook Login** → **Settings**
 2. Add your production domain to **Valid OAuth Redirect URIs**:
-   ```
+   \`\`\`
    https://yourdomain.com/auth/callback
-   ```
+   \`\`\`
 3. Click **Save Changes**
 
 ### 8.2 Verify Production Environment
