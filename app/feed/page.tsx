@@ -14,6 +14,7 @@ import { useToast } from "@/hooks/use-toast"
 import { NavDropdown } from "@/components/nav-dropdown"
 import { MessageNotificationIcon } from "@/components/message-notification-icon"
 import { BottomNav } from "@/components/bottom-nav"
+import { FeedPageSkeleton, PostCardSkeleton } from "@/components/skeletons"
 
 interface Post {
   id: string
@@ -161,11 +162,7 @@ export default function FeedPage() {
   }
 
   if (loading) {
-    return (
-      <div className="min-h-svh bg-background flex items-center justify-center">
-        <div className="text-foreground">Loading...</div>
-      </div>
-    )
+    return <FeedPageSkeleton />
   }
 
   return (
@@ -224,7 +221,12 @@ export default function FeedPage() {
                   disabled={loadingMore}
                   className="w-full max-w-xs"
                 >
-                  {loadingMore ? "Loading..." : "Load More Posts"}
+                  {loadingMore ? (
+                      <span className="flex items-center gap-2">
+                        <span className="h-4 w-4 animate-spin rounded-full border-2 border-current border-t-transparent" />
+                        Loading...
+                      </span>
+                    ) : "Load More Posts"}
                 </Button>
               </div>
             )}

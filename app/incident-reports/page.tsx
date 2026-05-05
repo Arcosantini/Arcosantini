@@ -16,6 +16,7 @@ import { useToast } from "@/hooks/use-toast"
 import { NavDropdown } from "@/components/nav-dropdown"
 import { BottomNav } from "@/components/bottom-nav"
 import Image from "next/image"
+import { IncidentReportsPageSkeleton } from "@/components/skeletons"
 
 interface IncidentReport {
   id: string
@@ -364,11 +365,7 @@ export default function IncidentReportsPage() {
   }
 
   if (loading) {
-    return (
-      <div className="min-h-svh bg-slate-950 flex items-center justify-center">
-        <div className="text-white">Loading...</div>
-      </div>
-    )
+    return <IncidentReportsPageSkeleton />
   }
 
   return (
@@ -860,7 +857,12 @@ export default function IncidentReportsPage() {
                 disabled={loadingMore}
                 className="w-full max-w-xs"
               >
-                {loadingMore ? "Loading..." : "Load More Reports"}
+                {loadingMore ? (
+                  <span className="flex items-center gap-2">
+                    <span className="h-4 w-4 animate-spin rounded-full border-2 border-current border-t-transparent" />
+                    Loading...
+                  </span>
+                ) : "Load More Reports"}
               </Button>
             </div>
           )}
