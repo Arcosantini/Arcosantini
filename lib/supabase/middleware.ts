@@ -6,26 +6,9 @@ export async function updateSession(request: NextRequest) {
     request,
   })
 
-  // Check if Supabase environment variables are available
-  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL
-  const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
-
-  // If env vars are missing, allow public pages and redirect protected pages to login
-  if (!supabaseUrl || !supabaseAnonKey) {
-    const pathname = request.nextUrl.pathname
-    // Allow public pages without Supabase
-    if (pathname === "/" || pathname.startsWith("/auth") || pathname.startsWith("/privacy") || pathname.startsWith("/terms") || pathname.startsWith("/data-deletion")) {
-      return supabaseResponse
-    }
-    // Redirect protected pages to login
-    const url = request.nextUrl.clone()
-    url.pathname = "/auth/login"
-    return NextResponse.redirect(url)
-  }
-
   const supabase = createServerClient(
-    supabaseUrl,
-    supabaseAnonKey,
+    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
     {
       cookies: {
         getAll() {

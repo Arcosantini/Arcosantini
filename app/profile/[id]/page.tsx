@@ -2,14 +2,14 @@ import { createClient } from "@/lib/supabase/server"
 import { notFound, redirect } from "next/navigation"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Button } from "@/components/ui/button"
-import { Plus, Menu, Link as LinkIcon, Grid3X3, MessageCircle } from "lucide-react"
+import { Card, CardContent, CardHeader } from "@/components/ui/card"
+import { Badge } from "@/components/ui/badge"
+import { MapPin, Briefcase, Calendar, Shield, MessageCircle, LogOut } from "lucide-react"
 import Link from "next/link"
-import { EditProfileButton } from "@/components/edit-profile-button"
-import { ShareProfileButton } from "@/components/share-profile-button"
 import { FollowButton } from "@/components/follow-button"
-import { VerifiedBadge } from "@/components/verified-badge"
-import { SecurityBadge } from "@/components/security-badge"
-import { BottomNav } from "@/components/bottom-nav"
+import { EditProfileButton } from "@/components/edit-profile-button"
+import { ShareButton } from "@/components/share-button"
+import { NavDropdown } from "@/components/nav-dropdown"
 
 interface ProfilePageProps {
   params: Promise<{ id: string }>
@@ -43,205 +43,163 @@ export default async function ProfilePage({ params }: ProfilePageProps) {
     .select("*", { count: "exact", head: true })
     .eq("follower_id", id)
 
-  // Get post count
-  const { count: postsCount } = await supabase
-    .from("posts")
-    .select("*", { count: "exact", head: true })
-    .eq("author_id", id)
-
-  // Get user's posts with images for the grid
-  const { data: posts } = await supabase
-    .from("posts")
-    .select("id, image_url, created_at")
-    .eq("author_id", id)
-    .not("image_url", "is", null)
-    .order("created_at", { ascending: false })
-
   // Check if current user follows this profile
   const { data: followData } = await supabase
     .from("follows")
     .select("id")
     .eq("follower_id", user.id)
     .eq("following_id", id)
-    .maybeSingle()
-
-  // Check if current user is admin
-  const { data: currentUserProfile } = await supabase
-    .from("profiles")
-    .select("is_admin")
-    .eq("id", user.id)
     .single()
-  const isAdmin = !!currentUserProfile?.is_admin
 
   const isFollowing = !!followData
   const isOwnProfile = user.id === id
 
+  // Get user's job posts
+  const { data: jobs } = await supabase
+    .from("jobs")
+    .select("*")
+    .eq("author_id", id)
+    .order("created_at", { ascending: false })
+    .limit(5)
+
   return (
-    <div className="min-h-svh bg-background">
-      {/* Header - Instagram Style */}
-      <header className="sticky top-0 z-50 bg-background border-b border-border">
-        <div className="max-w-lg mx-auto flex items-center justify-between px-4 py-3">
-          {/* Create Post Button */}
-          <Link href="/feed" className="p-1">
-            <Plus className="h-7 w-7 text-foreground" />
+    <div className="min-h-svh bg-slate-900">
+      <header className="border-b border-slate-700 bg-slate-900/50 backdrop-blur-sm sticky top-0 z-10">
+        <div className="container mx-auto px-4 py-4 flex items-center justify-between">
+          <Link href="/feed" className="flex items-center gap-2 hover:opacity-80 transition-opacity">
+            <Shield className="h-6 w-6 text-blue-400" />
+            <span className="text-xl font-bold text-white">MSS</span>
           </Link>
 
-          {/* Username Center */}
-          <div className="flex items-center gap-1.5">
-            <span className="text-xl font-semibold text-foreground">{profile.display_name}</span>
-            {profile.is_security_professional && <SecurityBadge size="lg" />}
-            {profile.verification_status === "approved" && <VerifiedBadge size="lg" />}
+          <div className="flex items-center gap-2">
+            <NavDropdown userId={user.id} />
+            <Button variant="ghost" size="sm" className="text-slate-400 hover:text-white gap-2">
+              <LogOut className="h-4 w-4" />
+              <span className="hidden sm:inline text-sm">Sign Out</span>
+            </Button>
           </div>
-
-          {/* Settings Menu */}
-          <Link href="/settings" className="p-1">
-            <Menu className="h-7 w-7 text-foreground" />
-          </Link>
         </div>
       </header>
 
-      <main className="max-w-lg mx-auto pb-20">
-        {/* Profile Info Section */}
-        <div className="px-4 py-4">
-          {/* Avatar and Stats Row */}
-          <div className="flex items-center gap-6">
-            {/* Avatar */}
-            <Avatar className="h-20 w-20 border-2 border-border">
-              <AvatarImage src={profile.avatar_url || undefined} className="object-cover" />
-              <AvatarFallback className="bg-secondary text-secondary-foreground text-2xl">
-                {profile.display_name?.charAt(0).toUpperCase() || "U"}
-              </AvatarFallback>
-            </Avatar>
+      <main className="container mx-auto px-4 py-8 max-w-4xl">
+        <Card className="border-slate-700 bg-slate-800/50">
+          <CardHeader className="pb-0">
+            <div className="flex flex-col md:flex-row gap-6 items-start">
+              <Avatar className="h-24 w-24 border-4 border-slate-700">
+                <AvatarImage src={profile.avatar_url || undefined} />
+                <AvatarFallback className="bg-slate-700 text-white text-2xl">
+                  {profile.display_name?.charAt(0).toUpperCase() || "U"}
+                </AvatarFallback>
+              </Avatar>
 
-            {/* Stats */}
-            <div className="flex flex-1 justify-around text-center">
-              <div>
-                <p className="text-lg font-semibold text-foreground">{postsCount || 0}</p>
-                <p className="text-sm text-muted-foreground">posts</p>
-              </div>
-              <div>
-                <p className="text-lg font-semibold text-foreground">{followersCount || 0}</p>
-                <p className="text-sm text-muted-foreground">followers</p>
-              </div>
-              <div>
-                <p className="text-lg font-semibold text-foreground">{followingCount || 0}</p>
-                <p className="text-sm text-muted-foreground">following</p>
+              <div className="flex-1 space-y-3">
+                <div>
+                  <h1 className="text-3xl font-bold text-white">{profile.full_name}</h1>
+                  <p className="text-slate-400">@{profile.display_name}</p>
+                </div>
+
+                {profile.bio && <p className="text-slate-300">{profile.bio}</p>}
+
+                <div className="flex flex-wrap gap-4 text-sm text-slate-400">
+                  {profile.location && (
+                    <div className="flex items-center gap-1">
+                      <MapPin className="h-4 w-4" />
+                      <span>{profile.location}</span>
+                    </div>
+                  )}
+                  {profile.years_experience && (
+                    <div className="flex items-center gap-1">
+                      <Briefcase className="h-4 w-4" />
+                      <span>{profile.years_experience} years experience</span>
+                    </div>
+                  )}
+                  <div className="flex items-center gap-1">
+                    <Calendar className="h-4 w-4" />
+                    <span>Joined {new Date(profile.created_at).toLocaleDateString()}</span>
+                  </div>
+                </div>
+
+                {profile.certifications && profile.certifications.length > 0 && (
+                  <div className="flex flex-wrap gap-2">
+                    {profile.certifications.map((cert, i) => (
+                      <Badge key={i} variant="secondary" className="bg-slate-700 text-slate-200">
+                        {cert}
+                      </Badge>
+                    ))}
+                  </div>
+                )}
+
+                <div className="flex gap-4 text-sm">
+                  <div>
+                    <span className="font-semibold text-white">{followersCount || 0}</span>{" "}
+                    <span className="text-slate-400">Followers</span>
+                  </div>
+                  <div>
+                    <span className="font-semibold text-white">{followingCount || 0}</span>{" "}
+                    <span className="text-slate-400">Following</span>
+                  </div>
+                </div>
+
+                <div className="flex gap-3">
+                  {isOwnProfile ? (
+                    <EditProfileButton profile={profile} />
+                  ) : (
+                    <>
+                      <FollowButton profileId={id} initialIsFollowing={isFollowing} />
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        className="border-slate-600 text-slate-200 bg-transparent"
+                        asChild
+                      >
+                        <Link href={`/messages?user=${id}`}>
+                          <MessageCircle className="h-4 w-4 mr-2" />
+                          Message
+                        </Link>
+                      </Button>
+                    </>
+                  )}
+                  <ShareButton url={`/profile/${id}`} title={`${profile.full_name}'s Profile`} />
+                </div>
               </div>
             </div>
-          </div>
+          </CardHeader>
+        </Card>
 
-          {/* Name */}
-          <div className="mt-4 flex items-center gap-1.5">
-            <p className="font-semibold text-foreground">{profile.full_name}</p>
-            {profile.is_security_professional && <SecurityBadge size="md" />}
-            {profile.verification_status === "approved" && <VerifiedBadge size="md" />}
-          </div>
-
-          {/* Bio */}
-          {profile.bio && (
-            <p className="mt-1 text-sm text-foreground whitespace-pre-wrap">{profile.bio}</p>
-          )}
-
-          {/* Website Link */}
-          {profile.website_url && (
-            <a
-              href={profile.website_url}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="mt-1 flex items-center gap-1 text-sm text-primary hover:underline"
-            >
-              <LinkIcon className="h-3 w-3" />
-              {profile.website_url.replace(/^https?:\/\//, "").slice(0, 40)}
-              {profile.website_url.length > 50 ? "..." : ""}
-            </a>
-          )}
-
-          {/* Social Link and Profession Row */}
-          <div className="mt-2 flex items-center gap-4 text-sm">
-            {profile.social_link && profile.social_platform && (
-              <a
-                href={profile.social_link}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center gap-1 text-muted-foreground hover:text-foreground"
-              >
-                <span className="font-medium">@{profile.social_platform}</span>
-              </a>
-            )}
-            {profile.profession && (
-              <span className="text-muted-foreground">{profile.profession}</span>
-            )}
-          </div>
-
-          {/* Professional Profile Banner */}
-          <div className="mt-4 bg-card border border-border rounded-lg p-3">
-            <p className="font-semibold text-card-foreground">Professional profile</p>
-            <p className="text-xs text-muted-foreground">Security industry professional</p>
-          </div>
-
-          {/* Action Buttons */}
-          <div className="mt-4 flex gap-2">
-            {isOwnProfile ? (
-              <>
-                <EditProfileButton profile={profile} isAdmin={isAdmin} />
-                <ShareProfileButton profileId={id} displayName={profile.display_name} />
-              </>
-            ) : isFollowing ? (
-              <>
-                <Button
-                  asChild
-                  className="flex-1 bg-[#1e3a5f] text-white hover:bg-[#162d4a] font-semibold"
-                >
-                  <Link href={`/messages?user=${id}`}>
-                    <MessageCircle className="h-4 w-4 mr-2" />
-                    Message
-                  </Link>
-                </Button>
-                <ShareProfileButton profileId={id} displayName={profile.display_name} />
-              </>
-            ) : (
-              <>
-                <FollowButton profileId={id} initialIsFollowing={false} className="flex-1" />
-                <ShareProfileButton profileId={id} displayName={profile.display_name} />
-              </>
-            )}
-          </div>
-        </div>
-
-        {/* Grid Tab */}
-        <div className="border-t border-border">
-          <div className="flex justify-center py-2">
-            <div className="px-12 py-2 border-b-2 border-foreground">
-              <Grid3X3 className="h-6 w-6 text-foreground" />
+        {jobs && jobs.length > 0 && (
+          <div className="mt-8">
+            <h2 className="text-2xl font-bold text-white mb-4">Recent Job Posts</h2>
+            <div className="space-y-4">
+              {jobs.map((job) => (
+                <Card key={job.id} className="border-slate-700 bg-slate-800/50">
+                  <CardContent className="pt-6">
+                    <Link href={`/jobs/${job.id}`}>
+                      <h3 className="text-xl font-semibold text-white hover:text-blue-400 transition-colors">
+                        {job.title}
+                      </h3>
+                      <p className="text-slate-400 mt-1">
+                        {job.venue_name} • {job.location}
+                      </p>
+                      <p className="text-slate-300 mt-2 line-clamp-2">{job.description}</p>
+                      <div className="flex gap-2 mt-3">
+                        <Badge variant="secondary" className="bg-slate-700 text-slate-200">
+                          {job.job_type.replace("_", " ")}
+                        </Badge>
+                        <Badge
+                          variant="secondary"
+                          className={`${job.status === "open" ? "bg-green-900 text-green-200" : "bg-slate-700 text-slate-200"}`}
+                        >
+                          {job.status}
+                        </Badge>
+                      </div>
+                    </Link>
+                  </CardContent>
+                </Card>
+              ))}
             </div>
           </div>
-        </div>
-
-        {/* Photo Grid */}
-        <div className="grid grid-cols-3 gap-0.5 bg-background">
-          {posts && posts.length > 0 ? (
-            posts.map((post) => (
-              <Link 
-                key={post.id} 
-                href={`/feed?post=${post.id}`} 
-                className="aspect-square relative block overflow-hidden bg-secondary"
-              >
-                <img
-                  src={post.image_url || "/placeholder.svg"}
-                  alt="Post"
-                  className="absolute inset-0 w-full h-full object-cover object-center hover:opacity-90 transition-opacity"
-                />
-              </Link>
-            ))
-          ) : (
-            <div className="col-span-3 py-12 text-center text-muted-foreground">
-              <Grid3X3 className="h-12 w-12 mx-auto mb-4 opacity-50" />
-              <p>No posts yet</p>
-            </div>
-          )}
-        </div>
+        )}
       </main>
-      <BottomNav userId={user.id} />
     </div>
   )
 }

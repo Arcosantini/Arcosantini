@@ -14,9 +14,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Avatar, AvatarFallback } from "@/components/ui/avatar"
 import { useToast } from "@/hooks/use-toast"
 import { NavDropdown } from "@/components/nav-dropdown"
-import { BottomNav } from "@/components/bottom-nav"
 import Image from "next/image"
-import { IncidentReportsPageSkeleton } from "@/components/skeletons"
 
 interface IncidentReport {
   id: string
@@ -44,16 +42,12 @@ export default function IncidentReportsPage() {
   const [user, setUser] = useState<any>(null)
   const [reports, setReports] = useState<IncidentReport[]>([])
   const [loading, setLoading] = useState(true)
-  const [loadingMore, setLoadingMore] = useState(false)
-  const [hasMore, setHasMore] = useState(true)
-  const REPORTS_PER_PAGE = 10
   const [showForm, setShowForm] = useState(false)
   const [editingReport, setEditingReport] = useState<IncidentReport | null>(null)
   const [showEditForm, setShowEditForm] = useState(false)
   const [uploading, setUploading] = useState(false)
   const [imagePreview, setImagePreview] = useState<string | null>(null)
   const [uploadedImageUrl, setUploadedImageUrl] = useState<string | null>(null)
-  const [isAdmin, setIsAdmin] = useState(false)
   const [formData, setFormData] = useState({
     incident_date: "",
     incident_time: "",
@@ -82,14 +76,6 @@ export default function IncidentReportsPage() {
       }
 
       setUser(currentUser)
-
-      const { data: profile } = await supabase
-        .from("profiles")
-        .select("is_admin")
-        .eq("id", currentUser.id)
-        .single()
-      if (profile?.is_admin) setIsAdmin(true)
-
       await fetchReports()
     } catch (error) {
       console.error("Error loading:", error)
@@ -98,7 +84,7 @@ export default function IncidentReportsPage() {
     }
   }
 
-  const fetchReports = async (offset = 0, append = false) => {
+  const fetchReports = async () => {
     try {
       const { data, error } = await supabase
         .from("incident_reports")
@@ -111,28 +97,13 @@ export default function IncidentReportsPage() {
           )
         `)
         .order("created_at", { ascending: false })
-        .range(offset, offset + REPORTS_PER_PAGE - 1)
 
       if (error) throw error
-      
-      setHasMore((data?.length || 0) === REPORTS_PER_PAGE)
-      
-      if (append) {
-        setReports((prev) => [...prev, ...(data || [])])
-      } else {
-        setReports(data || [])
-      }
+      setReports(data || [])
     } catch (error) {
       console.error("Error fetching reports:", error)
       toast({ title: "Failed to load reports", variant: "destructive" })
     }
-  }
-
-  const loadMoreReports = async () => {
-    if (loadingMore || !hasMore) return
-    setLoadingMore(true)
-    await fetchReports(reports.length, true)
-    setLoadingMore(false)
   }
 
   const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -365,7 +336,11 @@ export default function IncidentReportsPage() {
   }
 
   if (loading) {
-    return <IncidentReportsPageSkeleton />
+    return (
+      <div className="min-h-svh bg-slate-950 flex items-center justify-center">
+        <div className="text-white">Loading...</div>
+      </div>
+    )
   }
 
   return (
@@ -377,7 +352,7 @@ export default function IncidentReportsPage() {
             <span className="text-lg font-bold text-white">MSS</span>
           </Link>
           <div className="flex items-center gap-2">
-            <NavDropdown userId={user?.id} isAdmin={isAdmin} />
+            <NavDropdown userId={user?.id} />
             <MessageNotificationIcon userId={user?.id} />
             <Button variant="ghost" size="sm" className="text-slate-400 hover:text-white gap-2" onClick={handleSignOut}>
               <LogOut className="h-4 w-4" />
@@ -848,27 +823,8 @@ export default function IncidentReportsPage() {
                 </Card>
               ))
           )}
-          
-          {reports.length > 0 && hasMore && (
-            <div className="flex justify-center py-4">
-              <Button
-                variant="outline"
-                onClick={loadMoreReports}
-                disabled={loadingMore}
-                className="w-full max-w-xs"
-              >
-                {loadingMore ? (
-                  <span className="flex items-center gap-2">
-                    <span className="h-4 w-4 animate-spin rounded-full border-2 border-current border-t-transparent" />
-                    Loading...
-                  </span>
-                ) : "Load More Reports"}
-              </Button>
-            </div>
-          )}
         </div>
       </main>
-      <BottomNav userId={user?.id} />
     </div>
   )
 }

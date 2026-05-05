@@ -9,10 +9,9 @@ import { useRouter } from "next/navigation"
 interface FollowButtonProps {
   profileId: string
   initialIsFollowing: boolean
-  className?: string
 }
 
-export function FollowButton({ profileId, initialIsFollowing, className }: FollowButtonProps) {
+export function FollowButton({ profileId, initialIsFollowing }: FollowButtonProps) {
   const [isFollowing, setIsFollowing] = useState(initialIsFollowing)
   const [isLoading, setIsLoading] = useState(false)
   const router = useRouter()
@@ -49,7 +48,7 @@ export function FollowButton({ profileId, initialIsFollowing, className }: Follo
       disabled={isLoading}
       size="sm"
       variant={isFollowing ? "outline" : "default"}
-      className={`${isFollowing ? "border-slate-600 text-slate-200" : "bg-[#1e3a5f] text-white hover:bg-[#162d4a] font-semibold"} ${className || ""}`}
+      className={isFollowing ? "border-slate-600 text-slate-200" : ""}
     >
       {isFollowing ? (
         <>

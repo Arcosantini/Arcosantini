@@ -9,7 +9,6 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { LikeJobButton } from "@/components/like-job-button"
 import { DeleteJobButton } from "@/components/delete-job-button"
 import { ShareButton } from "@/components/share-button"
-import { BottomNav } from "@/components/bottom-nav"
 
 interface JobDetailPageProps {
   params: Promise<{ id: string }>
@@ -205,7 +204,6 @@ export default async function JobDetailPage({ params }: JobDetailPageProps) {
           </CardContent>
         </Card>
       </main>
-      <BottomNav userId={user.id} />
     </div>
   )
 }

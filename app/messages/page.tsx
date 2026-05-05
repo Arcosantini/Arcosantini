@@ -8,7 +8,6 @@ import { ConversationList } from "@/components/conversation-list"
 import { MessageThread } from "@/components/message-thread"
 import { NavDropdown } from "@/components/nav-dropdown"
 import { MessageNotificationIcon } from "@/components/message-notification-icon"
-import { BottomNav } from "@/components/bottom-nav"
 
 interface MessagesPageProps {
   searchParams: Promise<{ user?: string }>
@@ -24,12 +23,6 @@ export default async function MessagesPage({ searchParams }: MessagesPageProps) 
   if (!user) {
     redirect("/auth/login")
   }
-
-  const { data: currentProfile } = await supabase
-    .from("profiles")
-    .select("is_admin")
-    .eq("id", user.id)
-    .single()
 
   // Get all conversations (unique users we've messaged with)
   const { data: sentMessages } = await supabase.from("messages").select("recipient_id").eq("sender_id", user.id)
@@ -71,7 +64,7 @@ export default async function MessagesPage({ searchParams }: MessagesPageProps) 
             <span className="text-xl font-bold text-white">MSS</span>
           </Link>
 
-          <NavDropdown userId={user.id} isAdmin={!!currentProfile?.is_admin} />
+          <NavDropdown userId={user.id} />
           <MessageNotificationIcon userId={user.id} />
         </div>
       </header>
@@ -103,7 +96,6 @@ export default async function MessagesPage({ searchParams }: MessagesPageProps) 
           </Card>
         </div>
       </main>
-      <BottomNav userId={user.id} />
     </div>
   )
 }

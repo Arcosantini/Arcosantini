@@ -10,8 +10,6 @@ import { Heart, MessageCircle, Trash2, Send, Share2 } from "lucide-react"
 import { createClient } from "@/lib/supabase/client"
 import { useToast } from "@/hooks/use-toast"
 import Link from "next/link"
-import { VerifiedBadge } from "@/components/verified-badge"
-import { SecurityBadge } from "@/components/security-badge"
 
 interface PostCardProps {
   post: {
@@ -25,8 +23,6 @@ interface PostCardProps {
       display_name: string
       avatar_url: string | null
       full_name: string | null
-      verification_status?: string | null
-      is_security_professional?: boolean | null
     } | null
     post_likes?: { user_id: string }[]
   }
@@ -266,11 +262,7 @@ export function PostCard({ post, currentUserId }: PostCardProps) {
               </AvatarFallback>
             </Avatar>
             <div>
-              <div className="flex items-center gap-1">
-                <p className="font-semibold text-sm text-foreground">{post.profiles?.display_name || "Unknown User"}</p>
-                {post.profiles?.is_security_professional && <SecurityBadge size="sm" />}
-                {post.profiles?.verification_status === "approved" && <VerifiedBadge size="sm" />}
-              </div>
+              <p className="font-semibold text-sm text-foreground">{post.profiles?.display_name || "Unknown User"}</p>
               <p className="text-xs text-muted-foreground">
                 {new Date(post.created_at).toLocaleDateString("en-US", {
                   month: "short",

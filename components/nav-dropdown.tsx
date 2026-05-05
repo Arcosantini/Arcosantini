@@ -2,15 +2,14 @@
 
 import { useState } from "react"
 import Link from "next/link"
-import { ChevronDown, Briefcase, Users, MessageSquare, AlertCircle, Shield, Palette, Home, ShieldCheck } from "lucide-react"
+import { ChevronDown, Briefcase, Users, MessageSquare, AlertCircle, Shield, Palette, Home } from "lucide-react"
 import { Button } from "@/components/ui/button"
 
 interface NavDropdownProps {
   userId: string
-  isAdmin?: boolean
 }
 
-export function NavDropdown({ userId, isAdmin = false }: NavDropdownProps) {
+export function NavDropdown({ userId }: NavDropdownProps) {
   const [isOpen, setIsOpen] = useState(false)
 
   const navItems = [
@@ -19,7 +18,6 @@ export function NavDropdown({ userId, isAdmin = false }: NavDropdownProps) {
     { href: "/people", label: "People", icon: Users },
     { href: "/messages", label: "Messages", icon: MessageSquare },
     { href: "/incident-reports", label: "Incident Reports", icon: AlertCircle, highlight: true },
-    ...(isAdmin ? [{ href: "/admin", label: "Admin Dashboard", icon: ShieldCheck, highlight: true }] : []),
     { href: "/theme-settings", label: "Theme Settings", icon: Palette },
     { href: "/privacy", label: "Privacy Policy", icon: Shield },
     { href: "/data-deletion", label: "Data Deletion", icon: Shield },

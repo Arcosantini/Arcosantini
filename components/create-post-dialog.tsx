@@ -55,16 +55,11 @@ export function CreatePostDialog({ onPostCreated }: CreatePostDialogProps) {
 
     try {
       const supabase = createClient()
-      console.log("[v0] Getting user...")
       const {
         data: { user },
-        error: userError,
       } = await supabase.auth.getUser()
 
-      console.log("[v0] User result:", user?.id, "Error:", userError)
-
       if (!user) {
-        console.log("[v0] No user found, cannot create post")
         toast({
           title: "Error",
           description: "You must be logged in to create a post",
@@ -93,7 +88,7 @@ export function CreatePostDialog({ onPostCreated }: CreatePostDialogProps) {
         imageUrl = url
       }
 
-      console.log("[v0] Creating post with author_id:", user.id, "content:", content?.substring(0, 50))
+      console.log("[v0] Creating post...")
 
       // Create post
       const { error, data: newPost } = await supabase
@@ -105,12 +100,7 @@ export function CreatePostDialog({ onPostCreated }: CreatePostDialogProps) {
         })
         .select()
 
-      console.log("[v0] Insert result - error:", error, "data:", newPost)
-
-      if (error) {
-        console.error("[v0] Supabase insert error:", error.message, error.details, error.hint)
-        throw error
-      }
+      if (error) throw error
 
       console.log("[v0] Post created successfully:", newPost)
 

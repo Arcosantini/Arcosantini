@@ -52,10 +52,8 @@ export default function SignUpPage() {
       <div className="w-full max-w-sm">
         <div className="flex flex-col gap-4 sm:gap-6">
           <div className="flex flex-col items-center gap-2 text-center px-2">
-            <Link href="/" className="flex flex-col items-center gap-1 hover:opacity-80 transition-opacity">
-              <h1 className="text-3xl sm:text-4xl font-bold text-white">MSS</h1>
-              <p className="text-sm sm:text-base text-slate-300 font-medium">Main Street Social</p>
-            </Link>
+            <h1 className="text-3xl sm:text-4xl font-bold text-white">MSS</h1>
+            <p className="text-sm sm:text-base text-slate-300 font-medium">Main Street Social</p>
             <p className="text-xs sm:text-sm text-slate-400 mt-1">Join the professional network for bar security</p>
           </div>
           <Card className="border-slate-700 bg-slate-800/50">

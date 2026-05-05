@@ -8,7 +8,6 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { CreateJobButton } from "@/components/create-job-button"
 import { NavDropdown } from "@/components/nav-dropdown"
 import { MessageNotificationIcon } from "@/components/message-notification-icon"
-import { BottomNav } from "@/components/bottom-nav"
 
 export default async function JobsPage() {
   const supabase = await createClient()
@@ -20,13 +19,7 @@ export default async function JobsPage() {
     redirect("/auth/login")
   }
 
-  const { data: currentProfile } = await supabase
-    .from("profiles")
-    .select("is_admin")
-    .eq("id", user.id)
-    .single()
-
-  // Get jobs with author profile info (paginated)
+  // Get all open jobs with author profile info
   const { data: jobs } = await supabase
     .from("jobs")
     .select(`
@@ -39,7 +32,6 @@ export default async function JobsPage() {
       )
     `)
     .order("created_at", { ascending: false })
-    .limit(50)
 
   return (
     <div className="min-h-svh bg-background">
@@ -51,7 +43,7 @@ export default async function JobsPage() {
           </Link>
 
           <div className="flex gap-4">
-            <NavDropdown userId={user.id} isAdmin={!!currentProfile?.is_admin} />
+            <NavDropdown userId={user.id} />
             <MessageNotificationIcon userId={user.id} />
           </div>
         </div>
@@ -148,7 +140,6 @@ export default async function JobsPage() {
           </div>
         )}
       </main>
-      <BottomNav userId={user.id} />
     </div>
   )
 }
