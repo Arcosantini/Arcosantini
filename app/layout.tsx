@@ -11,9 +11,23 @@ const _geist = Geist({ subsets: ["latin"] })
 const _geistMono = Geist_Mono({ subsets: ["latin"] })
 
 export const metadata: Metadata = {
-  title: "v0 App",
-  description: "Created with v0",
-  generator: "v0.app",
+  title: "Main Street Social | Connect with Your Local Business Community",
+  description: "Main Street Social is the professional network for local business owners. Connect, collaborate, and grow with fellow entrepreneurs in your community.",
+  generator: "Main Street Social",
+  applicationName: "Main Street Social",
+  keywords: ["local business", "networking", "small business", "community", "entrepreneurs", "professional network"],
+  authors: [{ name: "Main Street Social" }],
+  openGraph: {
+    title: "Main Street Social",
+    description: "The professional network for local business owners. Connect, collaborate, and grow with your community.",
+    siteName: "Main Street Social",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Main Street Social",
+    description: "The professional network for local business owners.",
+  },
   icons: {
     icon: [
       {
